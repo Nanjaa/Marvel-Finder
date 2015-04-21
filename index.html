@@ -21,6 +21,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="main.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -31,21 +32,60 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<div class="container">
-  <header>
-    <h1>Marvel</h1>
-  </header>
-  <section id="fetch">
-    <input type="text" placeholder="search" id="term" />
-    <button id="search">Go</button>
-  </seciton>
-  <section id="poster">
 
-  </section>
-  <footer>
-    <p>Created by me</p>
-  </footer>
+<!-- nav bar -->
+<div class="wrapper">
+  <div class="row">
+    <div class="navBar">
+      <h1>Marvel Finder</h1>
+      <button class="home">Home</button>
+      <button class="browse">Browse</button>
+      <button class="myComics">My Comics</button>
+      <button class="calendar">Calendar</button>
+      <section id="fetch">
+        <input type="text" placeholder="search" id="term" />
+        <button id="search">Go</button>
+      </seciton>
+    </div>
+  </div>
 </div>
+
+<div class="bottomBar" id="headerBar"></div>
+
+  <!-- eye catcher -->
+
+<div class="contentWrapper">
+  <div class="row">
+    <div class="six columns" id="picture">
+      <img class="homePicture" src="guardians.png">
+    </div>
+    <div class="six columns">
+      <h3>The greatest thing ever!</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+    </div>
+  </div>
+
+  <!-- 3 columns -->
+
+  <div class="row">
+    <div class="four columns" id="spiderman">
+      <h5>Find Comics</h5>
+    </div>
+    <div class="four columns" id="deadpool">
+      <h5>Save Your Favorites</h5>
+    </div>
+    <div class="four columns" id="ghostRider">
+      <h5>Keep Track</h5>
+    </div>
+  </div>
+</div>
+  <!-- botom bar -->
+
+<div class="bottomBar" id="footerBar"></div>
+
+  <!-- footer -->
+
+  <footer>Stephanie Olfert YO</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="script.js"></script>

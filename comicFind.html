@@ -6,8 +6,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Your page title here :)</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Track your comics, find new comics, and keep a schedule of when new issues will be released">
+  <meta name="author" content="Stephanie Olfert">
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -21,6 +21,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="main.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -31,8 +32,59 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<input type="text" placeholder="God I hope this works..." id="search" />
-<button id="searchButton">Go</button>
+
+<!-- nav bar -->
+
+<div class="row">
+  <div class="navBar">
+    <h1>Marvel Finder</h1>
+    <button class="home">Home</button>
+    <button class="browse">Browse</button>
+    <button class="myComics">My Comics</button>
+    <button class="calendar">Calendar</button>
+<!--     <section id="fetch">
+      <input type="text" placeholder="search" id="term" />
+      <button id="search">Go</button>
+    </seciton> -->
+  </div>
+  <div class="bottomBar">
+  </div>
+</div>
+
+<!-- content -->
+
+<div class="container">
+  <section id="fetch">
+    <input type="text" placeholder="search" id="term" />
+    <button id="search">Go</button>
+  </seciton>
+  <section id="comicInfo">
+    <h1 id="loading"></h1>
+    <h1 id="comicTitle"></h1>
+    <p id="comicTitleSmall"></p>
+    <p id="comicDescription"></p>
+    <p id="comicStart"></p>
+    <p id="comicEnd"></p>
+    <img id="comicThumb">
+    <p id="comicAvail"></p>
+    <p id="content"></p>
+  </section>
+</div>
+
+<!-- botom bar -->
+
+<div class="bottomBar"></div>
+
+<!-- footer -->
+
+<footer>Stephanie Olfert YO</footer>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="script.js"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
