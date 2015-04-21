@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>Track your comics</title>
   <meta name="description" content="Track your comics, find new comics, and keep a schedule of when new issues will be released">
   <meta name="author" content="Stephanie Olfert">
 
@@ -16,6 +16,7 @@
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand|Bangers|Luckiest+Guy' rel='stylesheet' type='text/css'>
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -25,7 +26,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="mIcon.png">
 
 </head>
 <body>
@@ -34,54 +35,63 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <!-- nav bar -->
+<div class="wrapper">
+  <div class="row">
+    <div class="navBar">
+      <h1 id="title1">Marvel</h1><h1 id="title2">Finder</h1>
+      <a class="button" id="home" href="index.html">Home</a>
+      <a class="button" id="browse" href="comicFind.html">Browse</a>
+      <button class="myComics">My Comics</button>
+      <button class="calendar">Calendar</button>
+<!--       <section id="fetch2">
+        <input type="text" placeholder="search" id="term" />
+        <button id="search">Go</button>
+      </seciton> -->
+    </div>
+  </div>
+</div>
 
-<div class="row">
-  <div class="navBar">
-    <h1>Marvel Finder</h1>
-    <button class="home">Home</button>
-    <button class="browse">Browse</button>
-    <button class="myComics">My Comics</button>
-    <button class="calendar">Calendar</button>
-<!--     <section id="fetch">
-      <input type="text" placeholder="search" id="term" />
+<div class="bottomBar" id="headerBar"></div>
+
+ <!-- content  -->
+
+<div class="content">
+  <div class="row">
+    <div class="six columns">
+      <h1>Find Comics</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+      <section id="fetch">
+        <input type="text" placeholder="search" id="term" />
+      </seciton>
+      <br>
       <button id="search">Go</button>
-    </seciton> -->
-  </div>
-  <div class="bottomBar">
+      <section id="comicInfo">
+        <h1 id="loading"></h1>
+        <h1 id="comicTitle"></h1>
+        <p id="comicTitleSmall"></p>
+        <p id="comicDescription"></p>
+        <p id="comicStart"></p>
+        <p id="comicEnd"></p>
+        <img id="comicThumb">
+        <p id="comicAvail"></p>
+        <p id="content"></p>
+      </section>      
+    </div>
+    <div class="six columns">
+      <img src="/images/guardians.png">
+
+    </div>
   </div>
 </div>
 
-<!-- content -->
 
-<div class="container">
-  <section id="fetch">
-    <input type="text" placeholder="search" id="term" />
-    <button id="search">Go</button>
-  </seciton>
-  <section id="comicInfo">
-    <h1 id="loading"></h1>
-    <h1 id="comicTitle"></h1>
-    <p id="comicTitleSmall"></p>
-    <p id="comicDescription"></p>
-    <p id="comicStart"></p>
-    <p id="comicEnd"></p>
-    <img id="comicThumb">
-    <p id="comicAvail"></p>
-    <p id="content"></p>
-  </section>
-</div>
+  <!-- botom bar -->
 
-<!-- botom bar -->
+<div class="bottomBar" id="footerBar"></div>
 
-<div class="bottomBar"></div>
+  <!-- footer -->
 
-<!-- footer -->
-
-<footer>Stephanie Olfert YO</footer>
-
-
-
-
+  <footer>Stephanie Olfert YO</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="script.js"></script>

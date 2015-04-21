@@ -68,3 +68,20 @@ $('#term').keyup(function(event) {
 
 
 
+<div class="container">
+  <section id="fetch">
+    <input type="text" placeholder="search" id="term" />
+    <button id="search">Go</button>
+  </seciton>
+  <section id="comicInfo">
+    <h1 id="loading"></h1>
+    <h1 id="comicTitle"></h1>
+    <p id="comicTitleSmall"></p>
+    <p id="comicDescription"></p>
+    <p id="comicStart"></p>
+    <p id="comicEnd"></p>
+    <img id="comicThumb">
+    <p id="comicAvail"></p>
+    <p id="content"></p>
+  </section>
+</div>

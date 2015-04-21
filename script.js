@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('#comicInfo').hide();
 
 // begin
 
@@ -48,9 +49,20 @@ $('#term').keyup(function(event) {
 });
 
 
+// test
 
+$('#term').click(function() {
+	console.log("cunt");
+	('#comicInfo').show();
+})
 
+// Pictoral links on the home page
 
+// $('#spiderman').click(function() {
+// 	switch(this.id) {
+// 		window.location.href="comicFind.html"
+// 	}
+// })
 
 // end
 
