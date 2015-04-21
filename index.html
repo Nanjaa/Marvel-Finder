@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>Track your comics</title>
   <meta name="description" content="Track your comics, find new comics, and keep a schedule of when new issues will be released">
   <meta name="author" content="Stephanie Olfert">
 
@@ -16,6 +16,7 @@
   <!-- FONT
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand|Bangers|Luckiest+Guy' rel='stylesheet' type='text/css'>
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -25,7 +26,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="icon" type="image/png" href="mIcon.png">
 
 </head>
 <body>
@@ -37,7 +38,7 @@
 <div class="wrapper">
   <div class="row">
     <div class="navBar">
-      <h1>Marvel Finder</h1>
+      <h1 id="title1">Marvel</h1><h1 id="title2">Finder</h1>
       <button class="home">Home</button>
       <button class="browse">Browse</button>
       <button class="myComics">My Comics</button>
@@ -55,19 +56,21 @@
   <!-- eye catcher -->
 
 <div class="contentWrapper">
-  <div class="row">
-    <div class="six columns" id="picture">
+  <div class="row" id="eyePopper">
+    <div class="one column"></div>
+    <div class="four columns" id="picture">
       <img class="homePicture" src="guardians.png">
     </div>
-    <div class="six columns">
+    <div class="six columns" id="hook">
       <h3>The greatest thing ever!</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
     </div>
+    <div class="one column"></div>
   </div>
 
   <!-- 3 columns -->
 
-  <div class="row">
+  <div class="row" id="siteDesc">
     <div class="four columns" id="spiderman">
       <h5>Find Comics</h5>
     </div>
