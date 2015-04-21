@@ -30,6 +30,10 @@ button, #fetch, .home, .browse, .myComics, .calendar {
 h1 {
 	float: left;
 	display: inline-block;
+	font-family: 'Quicksand', sans-serif;
+}
+#title1 {
+	color: #e23636;
 }
 .four {
 	border: 3px solid black;
@@ -40,15 +44,24 @@ h1 {
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
-.six {
-	border: 5px solid orange;
+.four, .six {
+	border: 5px solid #f78f3f;
 	padding: 25px;
 }
 h3 {
 	text-align: center;
+	font-family: 'Quicksand', sans-serif;
+}
+h5 {
+	font-family: 'Bangers', cursive;
+	color: white;
+	font-size: 50px;
+	margin-top: 30%;
+	text-shadow: 0px 5px 10px black;
 }
 .contentWrapper {
-	margin: 30px;
+	margin: 0px;
+	background-color: #504a4a;
 	padding: 20px;
 }
 #spiderman {
@@ -61,9 +74,32 @@ h3 {
 	background-image: url("ghostRider.png");
 }
 #ghostRider, #deadpool, #spiderman {
-	height: 60vh;
+	height: 50vh;
+	border: 5px solid #518cca;
 }
-#picture, img {
-	padding: 0px;
-	height: 60vh;
+#picture {
+	padding: 0px;	
+}
+img {
+	width: 100%;
+	height: auto;
+}
+#hook {
+	background-color: white;
+}
+#eyePopper {
+	margin: 20px;
+	background-color: #969292;
+	padding: 50px;
+	padding-left: 40px;
+	padding-right: 40px;
+	border-radius: 300px 0px 300px / 300px 0px;
+}
+#siteDesc {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+button, input {
+	border-color: #504a4a;
+	color: #504a4a;
 }
