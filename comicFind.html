@@ -58,27 +58,37 @@
 <div class="content">
   <div class="row">
     <div class="six columns">
-      <h1>Find Comics</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+      <h1 id="title">Find Comics</h1>
+      <p id="comicDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+
+      <section id="comicInfo">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <td>Status</td>
+              <td id="status"></td>
+            </tr>
+            <tr>
+              <td>Issues</td>
+              <td id="comicAvail"></td>
+        <h1 id="loading"></h1>
+        <h1 id="comicTitle"></h1>
+        <p id="upcoming"></p>
+        <p id="comicID"></p>
+      </section> 
+
       <section id="fetch">
         <input type="text" placeholder="search" id="term" />
       </seciton>
       <br>
       <button id="search">Go</button>
-      <section id="comicInfo">
-        <h1 id="loading"></h1>
-        <h1 id="comicTitle"></h1>
-        <p id="comicTitleSmall"></p>
-        <p id="comicDescription"></p>
-        <p id="comicStart"></p>
-        <p id="comicEnd"></p>
-        <img id="comicThumb">
-        <p id="comicAvail"></p>
-        <p id="content"></p>
-      </section>      
+      <button id="test">Test</button>     
     </div>
+
+
+
     <div class="six columns">
-      <img src="/images/guardians.png">
+      <img id="comicThumb" src="/images/guardians.png">
 
     </div>
   </div>
