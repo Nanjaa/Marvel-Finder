@@ -13,27 +13,28 @@ var getSeries = function() {
 	}
 	else {
 		$('#loading').text('Loading');
+// retrieve the seried information from the API
 		$.get("http://gateway.marvel.com/v1/public/series?title=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+// respond if there is no data
 			if(typeof json.data.results[0] == 'undefined') {
 				$('#loading').hide();
 				$('#title').text('No Results Found');
 				$('#comicDescription').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
 			}
-
+// retrieve series ID
 			else {
 				console.log(json.data.results);
 				var marvel = json
+				var ID = json.data.results[0].id;
+				console.log(ID);
+// find information on the series from the ID
+				var getComic = function() {
+					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416");
+						$('#status').text(marvel.data.results[0].)
+				}
 
-				var name = json.data.results[0].title;
-				var thumbnail = marvel.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension;
-					$('#title').text(name);
-					$('#comicThumb').attr('src', thumbnail);
-					$('#comicDescription').text(marvel.data.results[0].description);
-					$('#comicAvail').text(marvel.data.results[0].comics.available + " issues available");
-					$('#status').text(marvel.data.results[0].type);
-					$('#rating').text(marvel.data.results[0].rating);
-					$('#comicID').text(marvel.data.results[0].id);
-					$('#loading').hide();
+// find information on the comics from the ID
+
 			}
 		});
 	}
