@@ -28,6 +28,7 @@
 /*divider*/
 .divider {
 	background-image: url("images/bar.jpg");
+	background-position: 50% 30%;
 	margin-top: 0px;
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
@@ -46,6 +47,7 @@ h3 {
 button, input {
 	border-color: #504a4a;
 	color: #504a4a;
+	margin: 10px;
 }
 button:hover {
 	color: #e23636;
@@ -94,13 +96,16 @@ h5 {
 	padding: 20px;
 }
 #spiderman {
-	background-image: url("images/spiderman.png")
+	background: url("images/spiderman.png") center center no-repeat;
+	background-position: center center;
 }
 #deadpool {
-	background-image: url("images/deadpool.png");
+	background: url("images/deadpool.png") center center no-repeat;
+	background-position: top;
 }
 #ghostRider {
-	background-image: url("images/ghostRider.png");
+	background: url("images/ghostRider.png");
+	background-position: 25% 25%;
 }
 #ghostRider, #deadpool, #spiderman {
 	height: 40vh;
@@ -127,7 +132,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #creators, #loadingGif, #ratingSystem {
+#browseComics, #creators, #loadingGif, #ratingSystem, #save {
 	display: none;
 }
 .content {
@@ -145,7 +150,7 @@ h5 {
 	border: 5px solid #e23636;
 	color: #e23636;
 }
-#search {
+#search, #save {
 	background-color: white;
 }
 .optionOne:hover, .optionTwo:hover, .optionThree:hover {
@@ -160,4 +165,14 @@ h5 {
 	border: 2px solid white;
 	margin: none;
 	padding: none;
+}
+
+/******************** MY COMICS LIST **********************/
+
+#myComicsList {
+	display: none;
+}
+#myComicsTable {
+	color: white;
+	width: 100%;
 }
