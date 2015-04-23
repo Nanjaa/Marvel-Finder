@@ -52,66 +52,59 @@ var getSeries = function() {
 				$('.optionOne').text(marvel.data.results[0].title);
 				$('.optionTwo').text(marvel.data.results[1].title);
 				$('.optionThree').text(marvel.data.results[2].title);
+// ************ THE FOLLOWING FUNCTIONS WILL ALL BE USED AFTER SELECTING A SERIES *****************
 // sets up the function for later 
-				function getInfo() {
-					$('#title').text(marvel.data.results[0].title);
-					$('#comicDescription').text(marvel.data.results[0].description);
-					$('#thumbnail').attr('src', marvel.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
-					$('#rating').text("rating: " + marvel.data.results[0].rating);
-					$('#url').attr('href', marvel.data.results[0].urls[0].url);
+				function printInfo(test) {
+					$('#title').text(test.data.results[0].title);
+					$('#comicDescription').text(test.data.results[0].description);
+					$('#thumbnail').attr('src', test.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
+					$('#rating').text("rating: " + test.data.results[0].rating);
+					$('#url').attr('href', test.data.results[0].urls[0].url);
 					$('#urlText').text('View this series at Marvel.com');
-					$('#creatorsNumber').text('creators: ' + marvel.data.results[0].creators.available);
+					$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
 					$('#creatorsNumber').hover(function() {
 						$('#creators').show();
 					});
-					console.log(marvel.data.results[0].creators.available);
 					var creatorsList = marvel.data.results[0].creators.items;
-
 					var findCreators = function() { 
 						for(var i=0; i<creatorsList.length; i++) {
 						$('#creators').append('<p>' + creatorsList[i].name + '</p>');
 						};
 					};
 					findCreators();
-
 					$('#loading').hide();
 				};
-
-// retrieve the information for option one
-				$('.optionOne').click(function() {
+// function to hide the options
+				function noOptions() {
 					$('.optionOne').hide();
 					$('.optionTwo').hide();
 					$('.optionThree').hide();
-					var ID = json.data.results[0].id;
-					$('loadingGif').show();
+				}
+// function to find the information 
+				function getInfo(ID) {
 					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-						$('loadingGif').hide();
-						var marvel = json
-						getInfo();
+						var test = json
+						printInfo(test);
 					});
+				} ;
+// ************************** NOW TO USE THOSE FUNCTIONS! ******************************
+// retrieve the information for option one
+				$('.optionOne').click(function() {
+					noOptions();
+					var ID = json.data.results[0].id;
+					getInfo(ID);
 				});
 // retrieve the information for option two
 				$('.optionTwo').click(function() {
-					$('.optionOne').hide();
-					$('.optionTwo').hide();
-					$('.optionThree').hide();
+					noOptions();
 					var ID = json.data.results[1].id;
-					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-						$('loadingGif').hide();
-						var marvel = json
-						getInfo();
-					});
+					getInfo(ID);
 				});
 // retrieve the information for option three
 				$('.optionThree').click(function() {
-					$('.optionOne').hide();
-					$('.optionTwo').hide();
-					$('.optionThree').hide();
+					noOptions();
 					var ID = json.data.results[2].id;
-					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-						var marvel = json
-						getInfo();
-					});
+					getInfo(ID);
 // EVERYTHING BELOW THIS LINE IS HAPPY AND GOOD DO NOT INTERFERE
 				});
 			};		
@@ -120,7 +113,7 @@ var getSeries = function() {
 	return false;
 };
 
-// K NOW YOU CAN INTERFERE
+// K NOW YOU CAN INTERFERE - THIS NEXT PART CALLS THE FUNCTIONS
 
 $('#search').click(getSeries);
 $('#term').keyup(function(event) {
