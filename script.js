@@ -61,14 +61,27 @@ var getSeries = function() {
 				var marvel = json
 				$('#loading').text('Please choose a series above');
 				showGif();
-				$('.optionOne').text(marvel.data.results[0].title);
-				$('.optionTwo').text(marvel.data.results[1].title);
-				$('.optionThree').text(marvel.data.results[2].title);
+				$('.optionOne').text(marvel.data.results[0].title);	
+				function showOptions() {				
+					if(typeof marvel.data.results[2] != 'undefined') {
+						$('.optionTwo').text(marvel.data.results[1].title);
+						$('.optionThree').text(marvel.data.results[2].title);						
+					}
+					else {
+						$('.optionTwo').text(marvel.data.results[1])
+					};
+				};
+				showOptions();
 // ************ THE FOLLOWING FUNCTIONS WILL ALL BE USED AFTER SELECTING A SERIES *****************
 // sets up the function for later 
 				function printInfo(test) {
 					$('#title').text(test.data.results[0].title);
-					$('#comicDescription').text(test.data.results[0].description);
+					function descriptionTest() {
+						if(test.data.results[0].description == null) {
+							$('#comicDescription').text(test.data.results[0].stories.items[0].name);
+						};					
+					};
+					descriptionTest();
 					$('#thumbnail').attr('src', test.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
 					$('#rating').text("rating: " + test.data.results[0].rating);
 					$('#url').attr('href', test.data.results[0].urls[0].url);
@@ -116,22 +129,30 @@ var getSeries = function() {
 						printInfo(test);
 					});
 				} ;
+				function noSearch() {
+					$('#term').hide();
+					$('#search').hide();
+					$('#save').show();
+				}
 // ************************** NOW TO USE THOSE FUNCTIONS! ******************************
 // retrieve the information for option one
 				$('.optionOne').click(function() {
 					noOptions();
+					noSearch();
 					var ID = json.data.results[0].id;
 					getInfo(ID);
 				});
 // retrieve the information for option two
 				$('.optionTwo').click(function() {
 					noOptions();
+					noSearch();
 					var ID = json.data.results[1].id;
 					getInfo(ID);
 				});
 // retrieve the information for option three
 				$('.optionThree').click(function() {
 					noOptions();
+					noSearch();
 					var ID = json.data.results[2].id;
 					getInfo(ID);
 // EVERYTHING BELOW THIS LINE IS HAPPY AND GOOD DO NOT INTERFERE
