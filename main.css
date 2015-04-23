@@ -175,4 +175,18 @@ h5 {
 #myComicsTable {
 	color: white;
 	width: 100%;
+	margin-top: 10vh;
+}
+#myComicsTable img {
+	height: 20vh;
+	width: auto;
+}
+#tableIndex {
+	color: #e23636;
+}
+#newComicNext {
+	color: #518cca;
+}
+#newComicName {
+	color: #f78f3f;
 }
