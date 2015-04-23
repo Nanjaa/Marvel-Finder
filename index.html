@@ -36,26 +36,27 @@
 
 <!-- nav bar -->
 <div class="wrapper">
-  <div class="row">
     <div class="navBar">
       <h1 id="title1">Marvel</h1><h1 id="title2">Finder</h1>
-      <a class="button" id="home" href="index.html">Home</a>
-      <a class="button" id="browse" href="comicFind.html">Browse</a>
-      <button class="myComics">My Comics</button>
-      <button class="calendar">Calendar</button>
-      <section id="fetch">
+      <button id="home" href="index.html">Home</a>
+      <button id="browse" href="comicFind.html">Browse</a>
+      <button id="myComics">My Comics</button>
+      <button id="calendar">Calendar</button>
+<!--       <section id="fetch">
         <input type="text" placeholder="search" id="term" />
         <button id="search">Go</button>
-      </seciton>
+      </seciton> -->
     </div>
-  </div>
 </div>
 
 <div class="bottomBar" id="headerBar"></div>
 
+
+<!-- ********************* MAIN PAGE **************************** -->
+
   <!-- eye catcher -->
 
-<div class="contentWrapper">
+<div class="contentWrapper" id="mainPage">
   <div class="row" id="eyePopper">
     <div class="one column"></div>
     <div class="four columns" id="picture">
@@ -82,6 +83,77 @@
     </div>
   </div>
 </div>
+
+<!-- ********** BROWSE COMICS *************** -->
+
+<div class="content" id="browseComics">
+  <div class="row">
+    <div class="six columns">
+      <h1 id="title">Find Comics</h1>
+      <p id="comicDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+
+      <section id="comicInfo">
+
+        <p class="optionOne"></p>
+        <p class="optionTwo"></p>
+        <p class="optionThree"></p>
+
+
+        <h1 id="loading"></h1>
+        <img src="/images/loading.gif" id="loadingGif">
+
+
+        <p id="comicAvail"></p>
+        <p id="rating"></p>
+        <p id="upcoming"></p>
+        <p id="creators"></p>
+        <p id="creatorsNumber"></p>
+        <a id="url" target="_blank"><p id="urlText"></p></a>
+
+      </section> 
+
+      <section id="fetch">
+        <input type="text" placeholder="search" id="term" />
+      </seciton>
+      <br>
+      <button id="search">Go</button>    
+    </div>
+
+
+
+    <div class="six columns">
+      <img id="thumbnail" src="/images/guardians.png">
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- botom bar -->
 
 <div class="bottomBar" id="footerBar"></div>

@@ -5,6 +5,9 @@ img {
 	width: 10%;
 	height: auto;
 }*/
+#browseComics, #creators, #loadingGif {
+	display: none;
+}
 .bottomBar {
 	background-image: url("images/bar.jpg");
 	margin-top: 0px;
@@ -23,6 +26,7 @@ img {
 }
 .navBar {
 	text-align: right;
+	padding-bottom: 20px;
 }
 .button, #fetch2, .home, .browse, .myComics, .calendar {
 	display: inline-block;
@@ -74,8 +78,11 @@ h5 {
 	background-image: url("images/ghostRider.png");
 }
 #ghostRider, #deadpool, #spiderman {
-	height: 50vh;
+	height: 40vh;
 	border: 5px solid #518cca;
+}
+#ghostRider:hover, #deadpool:hover, #spiderman:hover {
+	cursor: pointer;
 }
 #picture {
 	padding: 0px;	
@@ -135,4 +142,14 @@ button:visited {
 }
 #search {
 	background-color: white;
+}
+body {
+	background-color: #504a4a;
+}
+.wrapper {
+	background-color: white;
+}
+.optionOne:hover, .optionTwo:hover, .optionThree:hover {
+	cursor: pointer;
+	color: #e23636;
 }

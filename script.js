@@ -1,70 +1,159 @@
 $(document).ready(function() {
-	// $('#comicInfo').hide();
+	$('#browseComics').hide();
 
 // begin
 
+// ********************************************UNIVERSAL FUNCTIONS******************************************************
+function browseFunction() {
+	$('#mainPage').hide();
+	$('#browseComics').fadeIn('slow');	
+}
+function homeFunction() {
+	$('#browseComics').hide();
+	$('#mainPage').fadeIn('slow');	
+}
+
+$('#browse').click(browseFunction);
+$('#home').click(homeFunction);
+
+// ****************************************** MAIN PAGE *****************************************************************
+
+$('#spiderman').click(browseFunction);
+$('#spiderman').click(function() {
+})
+$('#spiderman').hover(function() {
+})
+// ****************************************** SEARCH COMICS *************************************************************
 
 var getSeries = function() {
 	var noSpaces = $('#term').val();
 	var series = noSpaces.split(' ').join('%20');
-	console.log(series);
 	if(series == '') {
 		$('#loading').text('What would you like to search for?');
 	}
 	else {
 		$('#loading').text('Loading');
+		$('#loadingGif').show();
 // retrieve the seried information from the API
 		$.get("http://gateway.marvel.com/v1/public/series?title=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 // respond if there is no data
 			if(typeof json.data.results[0] == 'undefined') {
 				$('#loading').hide();
+				$('#loadingGif').hide();
 				$('#title').text('No Results Found');
 				$('#comicDescription').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
 			}
-// retrieve series ID
+// provide user with three series options
 			else {
-				console.log(json.data.results);
 				var marvel = json
-				var ID = json.data.results[0].id;
-				console.log(ID);
-// find information on the series from the ID
-				var getComic = function() {
-					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416");
-						$('#status').text(marvel.data.results[0].)
-				}
+				$('#loading').text('Please choose a series above');
+				$('#loadingGif').hide();
+				$('.optionOne').text(marvel.data.results[0].title);
+				$('.optionTwo').text(marvel.data.results[1].title);
+				$('.optionThree').text(marvel.data.results[2].title);
+// retrieve the information for option one
+				$('.optionOne').click(function() {
+					$('.optionOne').hide();
+					$('.optionTwo').hide();
+					$('.optionThree').hide();
+					var ID = json.data.results[0].id;
+					$('loadingGif').show();
+					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+						$('loadingGif').hide();
+						var marvel = json
+						$('#title').text(marvel.data.results[0].title);
+						$('#comicDescription').text(marvel.data.results[0].description);
+						$('#thumbnail').attr('src', marvel.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
+						$('#rating').text("rating: " + marvel.data.results[0].rating);
+						$('#url').attr('href', marvel.data.results[0].urls[0].url);
+						$('#urlText').text('View this series at Marvel.com');
+						$('#creatorsNumber').text('creators: ' + marvel.data.results[0].creators.available);
+						$('#creatorsNumber').hover(function() {
+							$('#creators').show();
+						});
+						console.log(marvel.data.results[0].creators.available);
+						var creatorsList = marvel.data.results[0].creators.items;
 
-// find information on the comics from the ID
+						var findCreators = function() { 
+							for(var i=0; i<creatorsList.length; i++) {
+							$('#creators').append('<p>' + creatorsList[i].name + '</p>');
+							};
+						};
+						findCreators();
 
-			}
+						$('#loading').hide();
+					});
+				});
+// retrieve the information for option two
+				$('.optionTwo').click(function() {
+					$('.optionOne').hide();
+					$('.optionTwo').hide();
+					$('.optionThree').hide();
+					var ID = json.data.results[1].id;
+					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+						var marvel = json
+						$('#title').text(marvel.data.results[1].title);
+						$('#comicDescription').text(marvel.data.results[1].description);
+						$('#thumbnail').attr('src', marvel.data.results[1].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
+						$('#rating').text("rating: " + marvel.data.results[1].rating);
+						$('#url').attr('href', marvel.data.results[1].urls[0].url);
+						$('#urlText').text('View this series at Marvel.com');
+						$('#creatorsNumber').text('creators: ' + marvel.data.results[1].creators.available);
+						$('#creatorsNumber').hover(function() {
+							$('#creators').show();
+						})
+						var creatorsList = marvel.data.results[1].creators.items;
+
+						var findCreators = function() { 
+							for(var i=0; i<creatorsList.length; i++) {
+							$('#creators').append('<p>' + creatorsList[i].name + '</p>');
+							};
+						};
+						findCreators();
+
+						$('#loading').hide();
+					});
+				});
+// retrieve the information for option three
+				$('.optionThree').click(function() {
+					$('.optionOne').hide();
+					$('.optionTwo').hide();
+					$('.optionThree').hide();
+					var ID = json.data.results[2].id;
+					$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+						var marvel = json
+						$('#title').text(marvel.data.results[2].title);
+						$('#comicDescription').text(marvel.data.results[2].description);
+						$('#thumbnail').attr('src', marvel.data.results[2].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
+						$('#rating').text("rating: " + marvel.data.results[2].rating);
+						$('#url').attr('href', marvel.data.results[2].urls[0].url);
+						$('#urlText').text('View this series at Marvel.com');
+						$('#creatorsNumber').text('creators: ' + marvel.data.results[2].creators.available);
+						$('#creatorsNumber').hover(function() {
+							$('#creators').show();
+						})
+						var creatorsList = marvel.data.results[2].creators.items;
+
+						var creatorsList = marvel.data.results[2].creators.items;
+
+						var findCreators = function() { 
+							for(var i=0; i<creatorsList.length; i++) {
+							$('#creators').append('<p>' + creatorsList[i].name + '</p>');
+							};
+						};
+						findCreators();
+
+						$('#loading').hide();
+					});
+// EVERYTHING BELOW THIS LINE IS HAPPY AND GOOD DO NOT INTERFERE
+				});
+			};		
 		});
-	}
+	};
 	return false;
+};
 
-}
-
-// var getComic = function() {
-// 	var series = $('#comicID').text().;
-// 	console.log(series);
-// 	if(series == '') {
-// 		$('#loading').text('Fuck you');
-// 	}
-// 	else {
-// 		$('#loading').text('Loading');
-// 		$.get("http://gateway.marvel.com:80/v1/public/series/" + series + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-// 			var marvel = json
-// 			var mostRecent = marvel.data.results[0].title;
-// 			var seriesName = marvel.data.results[0].series.name;
-// 			var release = marvel.data.results[0].dates[0].date;
-// 			var price = marvel.data.results[0].prices[0].price;
-// 			var thumb = marvel.data.results[0].thumbnail.path;
-// 			var nail = marvel.data.results[0].thumbnail.extension;
-// 			var thumbnail = thumb + "." + nail;
-// 			console.log(mostRecent + " " + seriesName + " " + release + " " + price + " " + thumbnail);
-// 		});
-// 	};
-// };
-
-
+// K NOW YOU CAN INTERFERE
 
 $('#search').click(getSeries);
 $('#term').keyup(function(event) {
@@ -72,16 +161,6 @@ $('#term').keyup(function(event) {
 		getSeries();
 	}
 });
-
-// $('#test').click(getComic);
-
-// Pictoral links on the home page
-
-// $('#spiderman').click(function() {
-// 	switch(this.id) {
-// 		window.location.href="comicFind.html"
-// 	}
-// })
 
 // end
 
