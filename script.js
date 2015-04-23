@@ -6,17 +6,25 @@ $(document).ready(function() {
 // ********************************************UNIVERSAL FUNCTIONS******************************************************
 function browseFunction() {
 	$('#mainPage').hide();
+	$('myComicsList').hide();
 	$('#browseComics').fadeIn('slow');	
 };
 function homeFunction() {
 	$('#browseComics').hide();
+	$('#myComicsList').hide();
 	$('#mainPage').fadeIn('slow');	
 };
+function myComicsFunction() {
+	$('#browseComics').hide();
+	$('#mainPage').hide();
+	$('#myComicsList').fadeIn('slow');
+}
 
 $('#title1').click(homeFunction);
 $('#title2').click(homeFunction);
 $('#browse').click(browseFunction);
 $('#home').click(homeFunction);
+$('#myComics').click(myComicsFunction);
 $('#marvelFinder').hover(
 	function() {
 		$('#title1').css('color', '#f78f3f');
@@ -134,6 +142,21 @@ var getSeries = function() {
 					$('#search').hide();
 					$('#save').show();
 				}
+// function to save the series to local storage
+				function addEntry(ID) {
+					console.log(ID);
+					var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+					if(existingEntries == null) {
+						existingEntries = [];
+					}
+					var entry = {
+						"seriesID": ID
+					};
+					console.log(entry);
+					localStorage.setItem("entry", JSON.stringify(entry));
+					existingEntries.push(entry);
+					localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+				};
 // ************************** NOW TO USE THOSE FUNCTIONS! ******************************
 // retrieve the information for option one
 				$('.optionOne').click(function() {
@@ -141,6 +164,12 @@ var getSeries = function() {
 					noSearch();
 					var ID = json.data.results[0].id;
 					getInfo(ID);
+					$('#save').click(function() {
+						console.log("click");
+						addEntry(ID);
+						console.log(localStorage.getItem("allEntries"));
+						console.log(localStorage.getItem("entry"));
+					});
 				});
 // retrieve the information for option two
 				$('.optionTwo').click(function() {
@@ -148,6 +177,12 @@ var getSeries = function() {
 					noSearch();
 					var ID = json.data.results[1].id;
 					getInfo(ID);
+					$('#save').click(function() {
+						console.log("click");
+						addEntry();
+						console.log(localStorage.getItem("allEntries"));
+						console.log(localStorage.getItem("entry"));
+					});
 				});
 // retrieve the information for option three
 				$('.optionThree').click(function() {
@@ -155,6 +190,12 @@ var getSeries = function() {
 					noSearch();
 					var ID = json.data.results[2].id;
 					getInfo(ID);
+					$('#save').click(function() {
+						console.log("click");
+						addEntry();
+						console.log(localStorage.getItem("allEntries"));
+						console.log(localStorage.getItem("entry"));
+					});
 // EVERYTHING BELOW THIS LINE IS HAPPY AND GOOD DO NOT INTERFERE
 				});
 			};		
@@ -171,6 +212,38 @@ $('#term').keyup(function(event) {
 		getSeries();
 	}
 });
+
+// *************************************************** MY COMICS LIST ****************************************************************
+
+function addEntry() {
+	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+	if(existingEntries == null) {
+		existingEntries = [];
+	}
+	var vegetable = $('#vegetableType').val();
+	console.log(vegetable);
+	var entry = {
+		"myVegetable": vegetable
+	};
+	localStorage.setItem("entry", JSON.stringify(entry));
+	existingEntries.push(entry);
+	localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+};
+$('#go').click(function() {
+	console.log("click");
+	addEntry();
+	console.log(localStorage.getItem("allEntries"));
+	console.log(localStorage.getItem("entry"));
+});
+
+
+
+
+
+$('#testButton').click(function() {
+	localStorage.clear();
+})
+
 
 // end
 
