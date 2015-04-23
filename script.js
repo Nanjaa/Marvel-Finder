@@ -13,8 +13,20 @@ function homeFunction() {
 	$('#mainPage').fadeIn('slow');	
 };
 
+$('#title1').click(homeFunction);
+$('#title2').click(homeFunction);
 $('#browse').click(browseFunction);
 $('#home').click(homeFunction);
+$('#marvelFinder').hover(
+	function() {
+		$('#title1').css('color', '#f78f3f');
+		$('#title2').css('color', '#518cca');
+	},
+	function() {
+		$('#title1').css('color', '#e23636');
+		$('#title2').css('color', 'black');
+	}
+);
 
 function showGif() {
 	$('#loadingGif').toggle();
@@ -62,9 +74,16 @@ var getSeries = function() {
 					$('#url').attr('href', test.data.results[0].urls[0].url);
 					$('#urlText').text('View this series at Marvel.com');
 					$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
-					$('#creatorsNumber').hover(function() {
-						$('#creators').show();
-					});
+					$('#creatorsNumber').hover(
+						function() {
+							$('#creators').show();
+							$('#thumbnail').hide();
+						},
+						function() {
+							$('#creators').hide();
+							$('#thumbnail').show();
+						}
+					);
 					var creatorsList = marvel.data.results[0].creators.items;
 					var findCreators = function() { 
 						for(var i=0; i<creatorsList.length; i++) {
@@ -72,6 +91,16 @@ var getSeries = function() {
 						};
 					};
 					findCreators();
+					$('#rating').hover(
+						function() {
+							$('#ratingSystem').show();
+							$('#thumbnail').hide();
+						},
+						function() {
+							$('#ratingSystem').hide();
+							$('#thumbnail').show();
+						}
+					);
 					$('#loading').hide();
 				};
 // function to hide the options
