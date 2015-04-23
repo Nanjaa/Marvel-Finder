@@ -3,6 +3,25 @@ $(document).ready(function() {
 
 // begin
 
+var viewAll = localStorage.getItem("allEntries");
+$('#testButton').click(function() {
+	localStorage.clear();
+})
+$('#testButton2').click(function() {
+	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+	if(existingEntries == null) {
+		existingEntries = [];
+	}
+	var entry = {
+		"seriesID": 403,
+		"seriesID": 2265,
+		"seriesID": 17216
+	};
+	localStorage.setItem("entry", JSON.stringify(entry));
+	existingEntries.push(entry);
+	localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+})
+
 // ********************************************UNIVERSAL FUNCTIONS******************************************************
 function browseFunction() {
 	$('#mainPage').hide();
@@ -144,7 +163,6 @@ var getSeries = function() {
 				}
 // function to save the series to local storage
 				function addEntry(ID) {
-					console.log(ID);
 					var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
 					if(existingEntries == null) {
 						existingEntries = [];
@@ -152,7 +170,6 @@ var getSeries = function() {
 					var entry = {
 						"seriesID": ID
 					};
-					console.log(entry);
 					localStorage.setItem("entry", JSON.stringify(entry));
 					existingEntries.push(entry);
 					localStorage.setItem("allEntries", JSON.stringify(existingEntries));
@@ -165,10 +182,8 @@ var getSeries = function() {
 					var ID = json.data.results[0].id;
 					getInfo(ID);
 					$('#save').click(function() {
-						console.log("click");
 						addEntry(ID);
-						console.log(localStorage.getItem("allEntries"));
-						console.log(localStorage.getItem("entry"));
+						console.log(viewAll);
 					});
 				});
 // retrieve the information for option two
@@ -178,10 +193,8 @@ var getSeries = function() {
 					var ID = json.data.results[1].id;
 					getInfo(ID);
 					$('#save').click(function() {
-						console.log("click");
-						addEntry();
-						console.log(localStorage.getItem("allEntries"));
-						console.log(localStorage.getItem("entry"));
+						addEntry(ID);
+						console.log(viewAll);
 					});
 				});
 // retrieve the information for option three
@@ -191,10 +204,8 @@ var getSeries = function() {
 					var ID = json.data.results[2].id;
 					getInfo(ID);
 					$('#save').click(function() {
-						console.log("click");
-						addEntry();
-						console.log(localStorage.getItem("allEntries"));
-						console.log(localStorage.getItem("entry"));
+						addEntry(ID);
+						console.log(viewAll);
 					});
 // EVERYTHING BELOW THIS LINE IS HAPPY AND GOOD DO NOT INTERFERE
 				});
@@ -215,35 +226,13 @@ $('#term').keyup(function(event) {
 
 // *************************************************** MY COMICS LIST ****************************************************************
 
-function addEntry() {
-	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
-	if(existingEntries == null) {
-		existingEntries = [];
-	}
-	var vegetable = $('#vegetableType').val();
-	console.log(vegetable);
-	var entry = {
-		"myVegetable": vegetable
-	};
-	localStorage.setItem("entry", JSON.stringify(entry));
-	existingEntries.push(entry);
-	localStorage.setItem("allEntries", JSON.stringify(existingEntries));
-};
-$('#go').click(function() {
-	console.log("click");
-	addEntry();
-	console.log(localStorage.getItem("allEntries"));
-	console.log(localStorage.getItem("entry"));
-});
+var saveData = localStorage.getItem("allEntries")
+var dataList = JSON.parse(saveData);
+for(var i=0; i<dataList.length; i++) {
+	var newComic = "<tr><td>" + dataList[i]["seriesID"] + "</td></tr>";
 
-
-
-
-
-$('#testButton').click(function() {
-	localStorage.clear();
-})
-
+	$('#myComicsTable').append(newComic);
+}
 
 // end
 
