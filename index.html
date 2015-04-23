@@ -37,19 +37,19 @@
 <!-- nav bar -->
 <div class="wrapper">
     <div class="navBar">
-      <h1 id="title1">Marvel</h1><h1 id="title2">Finder</h1>
+      <h1 id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
       <button id="home" href="index.html">Home</a>
       <button id="browse" href="comicFind.html">Browse</a>
       <button id="myComics">My Comics</button>
       <button id="calendar">Calendar</button>
-<!--       <section id="fetch">
-        <input type="text" placeholder="search" id="term" />
-        <button id="search">Go</button>
-      </seciton> -->
+      <section id="fetch2">
+        <input type="text" placeholder="search" id="term2" />
+        <button id="search2">Go</button>
+      </seciton>
     </div>
 </div>
 
-<div class="bottomBar" id="headerBar"></div>
+<div class="divider" id="headerBar"></div>
 
 
 <!-- ********************* MAIN PAGE **************************** -->
@@ -106,7 +106,6 @@
         <p id="comicAvail"></p>
         <p id="rating"></p>
         <p id="upcoming"></p>
-        <p id="creators"></p>
         <p id="creatorsNumber"></p>
         <a id="url" target="_blank"><p id="urlText"></p></a>
 
@@ -123,7 +122,14 @@
 
     <div class="six columns">
       <img id="thumbnail" src="/images/guardians.png">
-
+      <p id="creators" style="color:black;"></p>
+      <div id="ratingSystem">
+        <p><b>ALL AGES</b> - Appropriate for all ages</p>
+        <p><b>T</b> - Appropriate for most readers, but parents are advised that they might want to read before or with younger children</p>
+        <p><b>T+ TEENS AND UP</b> - Appropriate for teens 13 and above</p>
+        <p><b>PARENTAL ADVISORY</b> - Appropriate for older teens. Similar to T+, but featuring more mature themes and/or more graphic imagery. Recommended for teen and adult readers</p>
+        <p><b>MAX: EXPLICIT CONTENT</b>Designed to appear distinct from mainline Marvel titles, with the "MAX: Explicit Content" label very prominently displayed on the cover. They will <i>not</i> be sold on the newsstand, and they will <i>not</i> be sold to younger readers.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -156,11 +162,11 @@
 
   <!-- botom bar -->
 
-<div class="bottomBar" id="footerBar"></div>
+<div class="divider" id="footerBar"></div>
 
   <!-- footer -->
 
-  <footer>Stephanie Olfert YO</footer>
+  <footer>Data provided by Marvel. © 2014 Marvel</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="script.js"></script>
