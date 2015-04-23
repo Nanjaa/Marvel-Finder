@@ -13,9 +13,7 @@ $('#testButton2').click(function() {
 		existingEntries = [];
 	}
 	var entry = {
-		"seriesID": 403,
-		"seriesID": 2265,
-		"seriesID": 17216
+		"seriesID": 403
 	};
 	localStorage.setItem("entry", JSON.stringify(entry));
 	existingEntries.push(entry);
@@ -228,10 +226,26 @@ $('#term').keyup(function(event) {
 
 var saveData = localStorage.getItem("allEntries")
 var dataList = JSON.parse(saveData);
+// setting up the function
+function getTableInfo(ID) {
+	$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+		var info = json
+		var comicThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
+// set up to print the variables
+		var newComicTitle = "<tr><td id='newComicName'><b>" + info.data.results[0].series.name + "</b></td>";
+		var newComicNext = "<td id='newComicNext'>" + info.data.results[0].title + "</td>";
+		var newComicRelease = "<td>" + info.data.results[0].dates[0].date + "</td>";
+		var newComicPrice = "<td><a target='_blank' href='" + info.data.results[0].urls[1].url + "'>$" + info.data.results[0].prices[0].price + "</a></td>";
+		var newComicDesc = "<td>" + info.data.results[0].description + "</td>";
+		var newComicThumb = "<td><img src='" + comicThumb + "'></td></tr>";
+// prints the variables
+		$('#myComicsTable').append(newComicTitle+newComicNext+newComicRelease+newComicPrice+newComicDesc+newComicThumb);
+	});
+};
+// calling the function
 for(var i=0; i<dataList.length; i++) {
-	var newComic = "<tr><td>" + dataList[i]["seriesID"] + "</td></tr>";
-
-	$('#myComicsTable').append(newComic);
+	var ID = dataList[i]["seriesID"];
+	getTableInfo(ID);
 }
 
 // end
