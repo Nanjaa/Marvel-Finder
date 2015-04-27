@@ -39,7 +39,6 @@
     <div class="navBar">
       <h1 id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
       <button id="testButton">CLEAR</button>
-      <button id="testButton2">REPOPULATE</button>
       <button id="home">Home</a>
       <button id="browse">Browse</a>
       <button id="myComics">My Comics</button>
@@ -74,13 +73,13 @@
   <!-- 3 columns -->
 
   <div class="row" id="siteDesc">
-    <div class="four columns" id="spiderman">
+    <div class="four columns picLink" id="spiderman">
       <h5>Find Comics</h5>
     </div>
-    <div class="four columns" id="deadpool">
+    <div class="four columns picLink" id="deadpool">
       <h5>Save Your Favorites</h5>
     </div>
-    <div class="four columns" id="ghostRider">
+    <div class="four columns picLink" id="ghostRider">
       <h5>Keep Track</h5>
     </div>
   </div>
@@ -91,9 +90,10 @@
 <div class="content" id="browseComics">
   <div class="row">
     <div class="six columns">
-      <h1 id="title">Find Comics</h1>
-      <p id="comicDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
-      <section id="comicInfo">
+      <button id="refresh">Refresh Search</button>
+      <h1 id="title" class="defaultTitle">Find Comics</h1>
+      <p id="comicDescription" class="defaultDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+      <section id="comicInfo" class="new">
         <p class="optionOne"></p>
         <p class="optionTwo"></p>
         <p class="optionThree"></p>
@@ -104,16 +104,17 @@
         <p id="upcoming"></p>
         <p id="creatorsNumber"></p>
         <a id="url" target="_blank"><p id="urlText"></p></a>
+        <button id="save">Save This Series</button> 
+        <div id="saved"><h1>Saved!</h1></div>
       </section> 
-      <section id="fetch">
-        <input type="text" placeholder="search" id="term" />
-      </seciton>
-      <br>
-      <button id="search">Go</button>   
-      <button id="save">Save This Series</button> 
+      <section id="fetch" class="defaultSearch">
+        <input type="text" placeholder="search" id="term" class="defaultTerm" />
+        <button id="search" class="defaultSearch">Go</button>   
+      </section>
     </div>
     <div class="six columns">
-      <img id="thumbnail" src="/images/guardians.png">
+    <section class="new">
+      <img id="thumbnail" class="defaultThumb" src="/images/guardians.png">
       <p id="creators" style="color:black;"></p>
       <div id="ratingSystem">
         <p><b>ALL AGES</b> - Appropriate for all ages</p>
@@ -121,6 +122,7 @@
         <p><b>T+ TEENS AND UP</b> - Appropriate for teens 13 and above</p>
         <p><b>PARENTAL ADVISORY</b> - Appropriate for older teens. Similar to T+, but featuring more mature themes and/or more graphic imagery. Recommended for teen and adult readers</p>
         <p><b>MAX: EXPLICIT CONTENT</b>Designed to appear distinct from mainline Marvel titles, with the "MAX: Explicit Content" label very prominently displayed on the cover. They will <i>not</i> be sold on the newsstand, and they will <i>not</i> be sold to younger readers.</p>
+      </section>
       </div>
     </div>
   </div>
