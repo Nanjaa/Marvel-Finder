@@ -132,7 +132,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #creators, #loadingGif, #ratingSystem, #save {
+#browseComics, #creators, #loadingGif, #ratingSystem, #save, #saved {
 	display: none;
 }
 .content {
@@ -150,7 +150,7 @@ h5 {
 	border: 5px solid #e23636;
 	color: #e23636;
 }
-#search, #save {
+#search, #save, #refresh {
 	background-color: white;
 }
 .optionOne:hover, .optionTwo:hover, .optionThree:hover {
