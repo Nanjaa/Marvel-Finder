@@ -86,10 +86,22 @@ p {
 }
 #hook {
 	border: 5px solid #f78f3f;
-	padding: 5%;
+	padding: 3%;
 	margin-left: 26%;
 	margin-right: 26%;
+	text-align: center;
 
+}
+#primaryOne, #primaryTwo {
+	font-size: 50px;
+	padding: 0;
+}
+#primaryOne {
+	margin-bottom: 0px;
+}
+#primaryTwo {
+	color: #518cca;
+	margin-top: 0px;
 }
 h5 {
 	font-family: 'Bangers', cursive;
@@ -146,7 +158,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #creators, #loadingGif, #ratingSystem, #save, #saved {
+#browseComics, #creators, #loadingGif, #ratingSystem, #save, #saved, #myCalendar {
 	display: none;
 }
 .content {
