@@ -48,6 +48,8 @@ button, input {
 	border-color: #504a4a;
 	color: #504a4a;
 	margin: 10px;
+	border: none;
+	font-family: 'Gudea', sans-serif;
 }
 button:hover {
 	color: #e23636;
@@ -67,6 +69,9 @@ footer {
 img {
 	width: 100%;
 	height: auto;
+}
+p {
+	font-family: 'Gudea', sans-serif;
 }
 
 /************* MAIN PAGE **************************/
