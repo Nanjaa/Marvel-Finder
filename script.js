@@ -10,7 +10,11 @@ $(document).ready(function() {
 		localStorage.clear();
 		console.log("local storage cleared")
 	})
-// ******************************************* UNIVERSAL FUNCTIONS *************************************
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 							UNIVERSAL FUNCTIONS									    ********
+// ******** 																				    ********
+// *****************************************************************************************************
 	function browseFunction() {
 		$('#mainPage').hide();
 		$('myComicsList').hide();
@@ -42,10 +46,21 @@ $(document).ready(function() {
 			$('#title2').css('color', 'black');
 		}
 	);
-// ****************************************** MAIN PAGE *****************************************************************
+
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 									MAIN PAGE									    ********
+// ******** 																				    ********
+// *****************************************************************************************************
 
 	$('#spiderman').click(browseFunction);
-// ************************************************ BROWSE COMICS *************************************
+
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 								BROWSE COMICS									    ********
+// ******** 																				    ********
+// *****************************************************************************************************
+
 // Call the functions you will read about below
 
 // THE FOLLOWING IS THE MAIN FUNCTION FOR BROWSE COMICS. BELOW IT YOU WILL FIND THE FUNCTIONS CALLED WITHIN getSeries
@@ -82,7 +97,7 @@ $(document).ready(function() {
 						getInfo(ID);
 						$('#save').click(function() {
 							getEntry(ID);
-							toggleStats();
+							hideStats();
 							showData();
 						});
 					});
@@ -94,7 +109,7 @@ $(document).ready(function() {
 						getInfo(ID);
 						$('#save').click(function() {
 							getEntry(ID);
-							toggleStats()
+							hideStats()
 							showData();
 						});
 					});
@@ -106,7 +121,7 @@ $(document).ready(function() {
 						getInfo(ID);
 						$('#save').click(function() {
 							getEntry(ID);
-							toggleStats();
+							hideStats();
 							showData();
 
 						});
@@ -150,7 +165,12 @@ $(document).ready(function() {
 		$('#title').text(test.data.results[0].title);
 		function descriptionTest() {
 			if(test.data.results[0].description == null) {
+				if(typeof test.data.results[0].items == 'undefined') {
+					$('#comicDescription').text("No description available. Sorry!");
+				}
+				else {
 				$('#comicDescription').text(test.data.results[0].stories.items[0].name);
+				}
 			}
 			else {
 				$('#comicDescription').text(test.data.results[0].description);
@@ -197,7 +217,9 @@ $(document).ready(function() {
 			var info = json;
 			var seriesName = info.data.results[0].series.name;
 			var seriesNext = info.data.results[0].title;
-			var seriesRelease = info.data.results[0].dates[0].date;
+			var getRelease = info.data.results[0].dates[0].date;
+			var seriesRelease = getRelease.split('T');
+			seriesRelease = seriesRelease[0];
 			// var seriesPrice = info.data.results[0].urls[1].url;
 			var seriesDesc = info.data.results[0].description;
 			var seriesThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
@@ -255,29 +277,31 @@ $(document).ready(function() {
 		}
 	});
 
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 							MY FAVORITE COMICS									    ********
+// ******** 																				    ********
+// *****************************************************************************************************
+
+var saveData = localStorage.getItem("allEntries")
+var dataList = JSON.parse(saveData);
+console.log(dataList);
+
+for(var i = 0; i < dataList.length; i++) {
+	var newName = "<tr><td id = 'newComicName'><b>" + dataList[i]["seriesName"] + "</b></td>";
+	var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
+	var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
+	// var newPrice = "<td>" + dataList[i]["seriesPrice"] + "</td>";
+	var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
+	var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td></tr>";
+	$('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb);
+}
+
+
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 								CALENDAR										    ********
+// ******** 																				    ********
+// *****************************************************************************************************
+
 });
-
-
-	// var saveData = localStorage.getItem("allEntries")
-	// var dataList = JSON.parse(saveData);
-	// setting up the function
-	// function getTableInfo(ID) {
-	// 		var comicThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
-	// set up to print the variables
-			// var newComicTitle = "<tr><td id='newComicName'><b>" + info.data.results[0].series.name + "</b></td>";
-			// var newComicNext = "<td id='newComicNext'>" + info.data.results[0].title + "</td>";
-			// var newComicRelease = "<td>" + info.data.results[0].dates[0].date + "</td>";
-			// var newComicPrice = "<td><a target='_blank' href='" + info.data.results[0].urls[1].url + "'>$" + info.data.results[0].prices[0].price + "</a></td>";
-			// var newComicDesc = "<td>" + info.data.results[0].description + "</td>";
-			// var newComicThumb = "<td><img src='" + comicThumb + "'></td></tr>";
-	// prints the variables
-			// $('#myComicsTable').append(newComicTitle+newComicNext+newComicRelease+newComicPrice+newComicDesc+newComicThumb);
-	// 	});
-	// };
-	// calling the function
-	// for(var i=0; i<dataList.length; i++) {
-	// 	var ID = dataList[i]["seriesID"];
-	// 	getTableInfo(ID);
-	// }
-
-
