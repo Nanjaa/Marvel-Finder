@@ -61,8 +61,8 @@
 <div class="contentWrapper" id="mainPage">
   <div class="row" id="eyePopper">
     <div class="six columns" id="hook">
-      <h3>The greatest thing ever!</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+      <h3 id = "primaryOne">Your comics,</h3><h3 id = "primaryTwo">made easy!</h3>
+      <p>Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online!</p>
     </div>
   </div>
 
@@ -88,7 +88,7 @@
     <div class="six columns">
       <button id="refresh">Refresh Search</button>
       <h1 id="title" class="defaultTitle">Find Comics</h1>
-      <p id="comicDescription" class="defaultDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae mollis tellus. Donec venenatis tortor sit amet tellus blandit cursus. Nunc sed augue eget sem aliquet dignissim. Proin sed semper sem, in placerat mauris. Etiam ac elementum orci, sed mollis magna. Aliquam ultrices tortor mauris. In hac habitasse platea dictumst.</p>
+      <p id="comicDescription" class="defaultDesc">Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online.</p>
       <section id="comicInfo" class="new">
         <p class="optionOne"></p>
         <p class="optionTwo"></p>
@@ -142,7 +142,13 @@
 
 </div>
 
+<!-- ************************************** CALENDAR *********************** -->
 
+<div class = "content" id = "myCalendar">
+<button id = "authorize-button" style = "visability: hidden">Authorize</button>
+<div id = "content"></div>
+<p>Retrieves your profile name using the Google Calendar API</p>
+</div>
 
 
 
@@ -175,6 +181,11 @@
   <footer>Data provided by Marvel. All images are © 2015 Marvel</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- below is the google api for google calendar -->
+<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
+ <!-- ugh i hate google... not really, i'm just frustrated. -->
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
 <script src="script.js"></script>
 
 <!-- End Document
