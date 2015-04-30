@@ -216,3 +216,12 @@ h5 {
 #newComicName {
 	color: #f78f3f;
 }
+#deleteIcon {
+	color: #f78f3f;
+}
+#deleteIcon:hover {
+	cursor: pointer;
+}
+#deleteMe {
+	text-align: center;
+}

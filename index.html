@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/fontello.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -36,10 +37,9 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <!-- nav bar -->
-<div class="wrapper">
+<div class="wrapper" id = "navBarWrapper">
     <div class="navBar">
       <h1 id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
-      <button id="testButton">CLEAR</button>
       <button id="home">Home</a>
       <button id="browse">Browse</a>
       <button id="myComics">My Comics</button>
@@ -134,9 +134,9 @@
     <th>Series Name</th>
     <th>Next Issue</th>
     <th>Release Date</th>
-    <th>Price</th>
     <th>Description</th>
     <th>Thumbnail</th>
+    <th>Delete</th>
   </tr>
 </table>
 
@@ -144,11 +144,7 @@
 
 <!-- ************************************** CALENDAR *********************** -->
 
-<div class = "content" id = "myCalendar">
-<button id = "authorize-button" style = "visability: hidden">Authorize</button>
-<div id = "content"></div>
-<p>Retrieves your profile name using the Google Calendar API</p>
-</div>
+
 
 
 
@@ -181,11 +177,6 @@
   <footer>Data provided by Marvel. All images are © 2015 Marvel</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<!-- below is the google api for google calendar -->
-<script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
- <!-- ugh i hate google... not really, i'm just frustrated. -->
-<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-
 <script src="script.js"></script>
 
 <!-- End Document
