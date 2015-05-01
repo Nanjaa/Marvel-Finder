@@ -1,6 +1,10 @@
 $(document).ready(function() {
 // the following will be used to reset the browse comics
 
+$('#clear').click(function() {
+	localStorage.clear();
+})
+
 // *****************************************************************************************************
 // ******** 																					********
 // ******** 							UNIVERSAL FUNCTIONS									    ********
@@ -48,6 +52,7 @@ $(document).ready(function() {
 		}
 	);
 	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
+	$('.term').val('')
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -114,7 +119,6 @@ $(document).ready(function() {
 						$('#save').click(function() {
 							getEntry(ID);
 							hideStats();
-							showData();
 						});
 					});
 // retrieve the information for option two
@@ -126,7 +130,6 @@ $(document).ready(function() {
 						$('#save').click(function() {
 							getEntry(ID);
 							hideStats()
-							showData();
 						});
 					});
 // retrieve the information for option three
@@ -138,7 +141,6 @@ $(document).ready(function() {
 						$('#save').click(function() {
 							getEntry(ID);
 							hideStats();
-							showData();
 
 						});
 					});
@@ -223,14 +225,18 @@ $(document).ready(function() {
 			function() {
 				$('#creators').show();
 				$('#thumbnail').hide();
+				$('#ratingSystem').hide();
 			},
 			function() {
 				if($('#creatorsNumber').data('clicked')) {
 					$('#creators').show();
 					$('#thumbnail').hide();
+					$('#ratingSystem').hide();
+					$('#ratingSystem').data('clicked', false);
 				}
 				else {
 				$('#creators').hide();
+				$('#ratingSystem').hide();
 				$('#thumbnail').show();
 				}
 			}
@@ -250,14 +256,18 @@ $(document).ready(function() {
 			function() {
 				$('#ratingSystem').show();
 				$('#thumbnail').hide();
+				$('#creators').hide();
 			},
 			function() {
 				if($('#rating').data('clicked')) {
 					$('#ratingSystem').show();
 					$('#thumbnail').hide();
+					$('#creators').hide();
+					$('#creatorsList').data('clicked', false);
 				}
 				else {
 				$('#ratingSystem').hide();
+				$('#creators').hide();
 				$('#thumbnail').show();
 				}
 			}
@@ -284,7 +294,7 @@ $(document).ready(function() {
 		})
 	}
 	function addEntry(seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
-		if(typeof existingEntries == "undefined") {
+		if(existingEntries == null) {
 			existingEntries = [];
 		}
 		var entry = {
@@ -297,6 +307,7 @@ $(document).ready(function() {
 		localStorage.setItem(seriesName, JSON.stringify(entry));
 		existingEntries.push(entry);
 		localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+		showData();
 		console.log(entry);
 		console.log(existingEntries);
 	};
@@ -311,7 +322,7 @@ $(document).ready(function() {
 		$('#saved').show();
 		$('#save').hide();
 	}
-// Refresh the browse comics page
+// ********************************* CLICK OPERATORS THAT BEGIN THE ABOVE STRING OF FUNCTIONS ********************************************************
 
 	$('.searchButton').click(searchItem);
 	$('.term').keyup(function(event) {
@@ -320,6 +331,13 @@ $(document).ready(function() {
 			browseFunction();
 		}
 	});
+
+	function noBrowseTerm() {
+		$('#browseTerm').click(function() {
+			$('#navTerm').val('');
+		});	
+	};
+	
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -330,15 +348,23 @@ $(document).ready(function() {
 var saveData = localStorage.getItem("allEntries")
 var dataList = JSON.parse(saveData);
 
-for(var i = 0; i < dataList.length; i++) {
-	var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
-	var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
-	var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
-	var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
-	var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
-	var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
-	$('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb+deleteSeries);
+if(dataList != null) {
+	savedTable();
 }
+
+function savedTable() {
+	for(var i = 0; i < dataList.length; i++) {
+		var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
+		var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
+		var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
+		var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
+		var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
+		var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
+		$('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb+deleteSeries);
+	}	
+}
+
+
 
 
 
