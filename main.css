@@ -224,3 +224,11 @@ h5 {
 #deleteMe {
 	text-align: center;
 }
+
+/************************* MISC *******************/
+
+footer {
+	padding: 5px;
+	padding-top: 10px;
+	font-family: 'Gudea', sans-serif;	
+}
