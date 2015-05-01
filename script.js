@@ -1,10 +1,6 @@
 $(document).ready(function() {
 // the following will be used to reset the browse comics
-	var titleClone = $('.defaultTitle').clone();
-	var descClone = $('.defaultDesc').clone();
-	var thumbClone = $('.defaultThumb').clone();
-	var termClone = $('.defaultTerm').clone();
-	var searchClone = $('.defaultSearch').clone();
+
 // *****************************************************************************************************
 // ******** 																					********
 // ******** 							UNIVERSAL FUNCTIONS									    ********
@@ -202,21 +198,6 @@ $(document).ready(function() {
 		$('#url').attr('href', test.data.results[0].urls[0].url);
 		$('#urlText').text('View this series at Marvel.com');
 		$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
-		$('#creatorsNumber').hover(
-			function() {
-				$('#creators').show();
-				$('#thumbnail').hide();
-			},
-			function() {
-				$('#creators').hide();
-				$('#thumbnail').show();
-			}
-		);
-		$('#creatorsNumber').click(function() {
-			console.log("hello i clicked creators")
-			$('#creators').show();
-			$('#thumbnail').hide();
-		})
 		var creatorsList = test.data.results[0].creators.items;
 		var findCreators = function() { 
 			for(var i=0; i<creatorsList.length; i++) {
@@ -224,30 +205,68 @@ $(document).ready(function() {
 			};
 		};
 		findCreators();
-		$('#rating').click(function() {
-			console.log("hello i clicked rating")
-			$('#ratingSystem').show();
-			$('#thumbnail').hide();
-			var helloTest = true;
+		$('#loading').hide();
+
+
+
+
+		$('#creatorsNumber').click(function() {
+			if ($(this).data('clicked')) {
+				$(this).data('clicked', false);
+			}
+			else {
+				$(this).data('clicked', true);
+			}
 		});
+
+		$('#creatorsNumber').hover(
+			function() {
+				$('#creators').show();
+				$('#thumbnail').hide();
+			},
+			function() {
+				if($('#creatorsNumber').data('clicked')) {
+					$('#creators').show();
+					$('#thumbnail').hide();
+				}
+				else {
+				$('#creators').hide();
+				$('#thumbnail').show();
+				}
+			}
+		);
+
+
+		$('#rating').click(function() {
+			if ($(this).data('clicked')) {
+				$(this).data('clicked', false);
+			}
+			else {
+				$(this).data('clicked', true);
+			}
+		});
+
 		$('#rating').hover(
 			function() {
 				$('#ratingSystem').show();
 				$('#thumbnail').hide();
 			},
 			function() {
-				if(helloTest !== true) {
-					$('#ratingSystem').hide();
-					$('#thumbnail').show();
+				if($('#rating').data('clicked')) {
+					$('#ratingSystem').show();
+					$('#thumbnail').hide();
 				}
 				else {
-					console.log("it did not work.");
+				$('#ratingSystem').hide();
+				$('#thumbnail').show();
 				}
-
 			}
 		);
-		$('#loading').hide();
+
 	};
+
+
+
 
 	function getEntry(ID) {
 		console.log(ID);
@@ -293,18 +312,7 @@ $(document).ready(function() {
 		$('#save').hide();
 	}
 // Refresh the browse comics page
-	$('#refresh').click(function() {
-		$('#title').replaceWith(titleClone);
-		$('#comicDescription').replaceWith(descClone);
-		$('#thumbnail').replaceWith(thumbClone);
-		// $('#search').replaceWith(searchClone);
-		// $('#term').replaceWith(termClone)
-		$('#search').show();
-		$('#term').show();
-		hideStats();
-		$('#save').hide();
-		console.log("hello, this should be resetting");
-	});
+
 	$('.searchButton').click(searchItem);
 	$('.term').keyup(function(event) {
 		if(event.keyCode == 13) {
