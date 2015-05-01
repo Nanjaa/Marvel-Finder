@@ -73,6 +73,9 @@ img {
 p {
 	font-family: 'Gudea', sans-serif;
 }
+a {
+	text-decoration: none;
+}
 
 /************* MAIN PAGE **************************/
 .four {
@@ -173,8 +176,9 @@ h5 {
 	color: white;
 }
 #term {
-	border: 5px solid #e23636;
+	border: 2px solid #e23636;
 	color: #e23636;
+	padding: 5px;
 }
 #search, #save, #refresh {
 	background-color: white;
@@ -186,11 +190,6 @@ h5 {
 #creatorsNumber:hover, #rating:hover {
 	cursor: pointer;
 	color: #e23636;
-}
-#creatorsNumber, #rating {
-	border: 2px solid white;
-	margin: none;
-	padding: none;
 }
 
 /******************** MY COMICS LIST **********************/
@@ -213,13 +212,13 @@ h5 {
 #newComicNext {
 	color: #518cca;
 }
-#newComicName {
+.newSeriesName {
 	color: #f78f3f;
 }
-#deleteIcon {
+.icon-cancel-circled2-1 {
 	color: #f78f3f;
 }
-#deleteIcon:hover {
+.icon-cancel-circled2-1:hover {
 	cursor: pointer;
 }
 #deleteMe {

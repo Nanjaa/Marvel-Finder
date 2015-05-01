@@ -51,6 +51,7 @@ $(document).ready(function() {
 			$('#title2').css('color', 'black');
 		}
 	);
+	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -71,9 +72,21 @@ $(document).ready(function() {
 // Call the functions you will read about below
 
 // THE FOLLOWING IS THE MAIN FUNCTION FOR BROWSE COMICS. BELOW IT YOU WILL FIND THE FUNCTIONS CALLED WITHIN getSeries
-	var getSeries = function() {
-		var noSpaces = $('#term').val();
-		var series = noSpaces.split(' ').join('%20');
+	function searchItem() {
+		if($('#navTerm').val() == '') {
+			var noSpaces = $('#browseTerm').val();
+			var series = noSpaces.split(' ').join('%20');
+			getSeries(series);
+		}
+		else {
+			var noSpaces = $('#navTerm').val();
+			var series = noSpaces.split(' ').join('%20');
+			getSeries(series);
+		};	
+	};
+
+	function getSeries(series) {
+		console.log(series);
 		if(series == '') {
 			$('#loading').text('What would you like to search for?');
 		}
@@ -81,7 +94,7 @@ $(document).ready(function() {
 			$('#loading').text('Loading');
 			showGif();
 // retrieve the series information from the API
-			$.get("http://gateway.marvel.com/v1/public/series?title=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 // respond if there is no data
 				if(typeof json.data.results[0] == 'undefined') {
 					$('#loading').hide();
@@ -199,6 +212,11 @@ $(document).ready(function() {
 				$('#thumbnail').show();
 			}
 		);
+		$('#creatorsNumber').click(function() {
+			console.log("hello i clicked creators")
+			$('#creators').show();
+			$('#thumbnail').hide();
+		})
 		var creatorsList = test.data.results[0].creators.items;
 		var findCreators = function() { 
 			for(var i=0; i<creatorsList.length; i++) {
@@ -206,14 +224,26 @@ $(document).ready(function() {
 			};
 		};
 		findCreators();
+		$('#rating').click(function() {
+			console.log("hello i clicked rating")
+			$('#ratingSystem').show();
+			$('#thumbnail').hide();
+			var helloTest = true;
+		});
 		$('#rating').hover(
 			function() {
 				$('#ratingSystem').show();
 				$('#thumbnail').hide();
 			},
 			function() {
-				$('#ratingSystem').hide();
-				$('#thumbnail').show();
+				if(helloTest !== true) {
+					$('#ratingSystem').hide();
+					$('#thumbnail').show();
+				}
+				else {
+					console.log("it did not work.");
+				}
+
 			}
 		);
 		$('#loading').hide();
@@ -235,8 +265,7 @@ $(document).ready(function() {
 		})
 	}
 	function addEntry(seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
-		var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
-		if(existingEntries == null || typeof existingEntries == 'undefined') {
+		if(typeof existingEntries == "undefined") {
 			existingEntries = [];
 		}
 		var entry = {
@@ -276,10 +305,11 @@ $(document).ready(function() {
 		$('#save').hide();
 		console.log("hello, this should be resetting");
 	});
-	$('#search').click(getSeries);
-	$('#term').keyup(function(event) {
+	$('.searchButton').click(searchItem);
+	$('.term').keyup(function(event) {
 		if(event.keyCode == 13) {
-			getSeries();
+			searchItem();
+			browseFunction();
 		}
 	});
 
@@ -289,30 +319,30 @@ $(document).ready(function() {
 // ******** 																				    ********
 // *****************************************************************************************************
 
-// var saveData = localStorage.getItem("allEntries")
-// var dataList = JSON.parse(saveData);
-// console.log(dataList);
+var saveData = localStorage.getItem("allEntries")
+var dataList = JSON.parse(saveData);
 
 for(var i = 0; i < dataList.length; i++) {
-	var newName = "<tr><td id = 'newComicName'><b>" + dataList[i]["seriesName"] + "</b></td>";
+	var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
 	var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
 	var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
 	var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
 	var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
-	var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1' id='deleteIcon'></i></td></tr>";
+	var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
 	$('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb+deleteSeries);
 }
 
-// go up to <td> from i, then go all the way up to the first td at the beginning of the table
 
-localStorage.clear();
-// $('#deleteIcon').click(function() {
-// 	var guardTest = "Ms. Marvel (2014 - Present)";
-// 	console.log("here is the information: " + localStorage.getItem(guardTest));
-// 	localStorage.removeItem(guardTest);
-// 	localStorage.setItem("allEntries", JSON.stringify());
-// 	console.log(saveData);
-// })
+
+$('.icon-cancel-circled2-1').click(function() {
+	var rawKey = $(this).parent().siblings().get(0).id;
+	var key = '"' + rawKey + '"';
+	localStorage.removeItem(key);
+	localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+	console.log(saveData);
+	console.log(existingEntries);
+	console.log(localStorage.getItem(key));
+})
 
 // *****************************************************************************************************
 // ******** 																					********
