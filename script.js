@@ -87,63 +87,108 @@ $('#clear').click(function() {
 	};
 
 	function getSeries(series) {
-		console.log(series);
 		if(series == '') {
-			$('#loading').text('What would you like to search for?');
+			$('#response').text('What would you like to search for?');
 		}
 		else {
-			$('#loading').text('Loading');
 			showGif();
 // retrieve the series information from the API
 			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+// functions that will be used in the below chunks
+
+// retrieve the information for option one
+
+				var count = 0;
+				function getOptions(marvel, count) {
+					for(var i = 0; i < (marvel.data.results).length; i++) {
+						console.log(marvel.data.results[i].creators.available);
+						if(marvel.data.results[i].creators.available !== 0) {
+							count = count + 1;
+							if(count === 1) {
+								$('#optionOne').text(marvel.data.results[i].title);
+								var ID = marvel.data.results[i].id;
+								// $('.optionOne').click(clickOptions(ID));
+							}
+							else if(count === 2) {
+								$('#optionTwo').text(marvel.data.results[i].title);
+								var ID = marvel.data.results[i].id;
+								// $('.optionTwo').click(clickOptions(ID));
+							}
+							else if(count === 3) {
+								$('#optionThree').text(marvel.data.results[i].title)
+								var ID = marvel.data.results[i].id;
+								// $('.optionThree').click(clickOptions(ID));
+								return;
+							}
+						}
+					}
+				}
+				$('#optionOne').click(function() {
+					console.log(ID);
+				})
+				function clickOptions(ID) {
+					console.log(ID)
+					// noOptions();
+					// noSearch();
+					// getInfo(ID);
+					// $('#save').click(function() {
+					// 	getEntry(ID);
+					// 	hideStats();
+					// })
+				}
+
 // respond if there is no data
 				if(typeof json.data.results[0] == 'undefined') {
-					$('#loading').hide();
-					showGif();
-					$('#title').text('No Results Found');
-					$('#comicDescription').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
+					hideGif();
+					$('#serverResponses').show();
+					$('#response').text('No Results Found');
+					$('#error').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
 				}
 // provide user with three series options
 				else {
+					$('#browseOne').hide();
+					$('#browseTwo').show();
+					$('#response').show();
+					$('#error').hide();
 					var marvel = json
-					$('#loading').text('Please choose a series above');
-					showGif();
-					$('.optionOne').text(marvel.data.results[0].title);	
-					showOptions(marvel);
-// retrieve the information for option one
-					$('.optionOne').click(function() {
-						noOptions();
-						noSearch();
-						var ID = json.data.results[0].id;
-						getInfo(ID);
-						$('#save').click(function() {
-							getEntry(ID);
-							hideStats();
-						});
-					});
-// retrieve the information for option two
-					$('.optionTwo').click(function() {
-						noOptions();
-						noSearch();
-						var ID = json.data.results[1].id;
-						getInfo(ID);
-						$('#save').click(function() {
-							getEntry(ID);
-							hideStats()
-						});
-					});
-// retrieve the information for option three
-					$('.optionThree').click(function() {
-						noOptions();
-						noSearch();
-						var ID = json.data.results[2].id;
-						getInfo(ID);
-						$('#save').click(function() {
-							getEntry(ID);
-							hideStats();
+					$('#response').text('Please choose a series above');
+					hideGif();
+					getOptions(marvel, count);	
 
-						});
-					});
+// retrieve the information for option one
+					// $('.optionOne').click(function() {
+					// 	noOptions();
+					// 	noSearch();
+					// 	var ID = json.data.results[i].id;
+					// 	getInfo(ID);
+					// 	$('#save').click(function() {
+					// 		getEntry(ID);
+					// 		hideStats();
+					// 	});
+					// });
+// retrieve the information for option two
+					// $('.optionTwo').click(function() {
+					// 	noOptions();
+					// 	noSearch();
+					// 	var ID = json.data.results[1].id;
+					// 	getInfo(ID);
+					// 	$('#save').click(function() {
+					// 		getEntry(ID);
+					// 		hideStats()
+					// 	});
+					// });
+// retrieve the information for option three
+					// $('.optionThree').click(function() {
+					// 	noOptions();
+					// 	noSearch();
+					// 	var ID = json.data.results[2].id;
+					// 	getInfo(ID);
+					// 	$('#save').click(function() {
+					// 		getEntry(ID);
+					// 		hideStats();
+
+					// 	});
+					// });
 				};		
 			});
 		};
@@ -151,18 +196,15 @@ $('#clear').click(function() {
 	};
 // The below functions are in order of when they are called in the above function
 	function showGif() {
-		$('#loadingGif').toggle();
+		console.log("the gif should be shown");
+		$('#loading').show();
+		$('#loadingGif').show();
 	};
-
-	function showOptions(marvel) {				
-		if(typeof marvel.data.results[2] != 'undefined') {
-			$('.optionTwo').text(marvel.data.results[1].title);
-			$('.optionThree').text(marvel.data.results[2].title);						
-		}
-		else {
-			$('.optionTwo').text(marvel.data.results[1])
-		};
-	};
+	function hideGif() {
+		console.log("the gif should be hidden");
+		$('#loading').hide();
+		$('#loadingGif').hide();
+	}
 	function noOptions() {
 		$('.optionOne').hide();
 		$('.optionTwo').hide();
@@ -174,12 +216,17 @@ $('#clear').click(function() {
 		$('#save').show();
 	}
 	function getInfo(ID) {
+		$('#serverResponses').hide();
+		$('#browseTwo').hide();
+		$('#browseThree').show();
+		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 			var test = json
 			printInfo(test);
 		});
-	} ;
+	};
 	function printInfo(test) {
+		hideGif();
 		$('#title').text(test.data.results[0].title);
 		function descriptionTest() {
 			if(test.data.results[0].description == null) {
@@ -279,7 +326,7 @@ $('#clear').click(function() {
 
 
 	function getEntry(ID) {
-		console.log(ID);
+		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 			var info = json;
 			var seriesName = info.data.results[0].series.name;
@@ -289,7 +336,6 @@ $('#clear').click(function() {
 			seriesRelease = seriesRelease[0];
 			var seriesDesc = info.data.results[0].description;
 			var seriesThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
-			console.log(seriesName, seriesNext, seriesName, seriesRelease, seriesDesc, seriesThumb);
 			addEntry(seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb);
 		})
 	}
@@ -308,6 +354,7 @@ $('#clear').click(function() {
 		existingEntries.push(entry);
 		localStorage.setItem("allEntries", JSON.stringify(existingEntries));
 		showData();
+		hideGif();
 		console.log(entry);
 		console.log(existingEntries);
 	};
@@ -332,11 +379,9 @@ $('#clear').click(function() {
 		}
 	});
 
-	function noBrowseTerm() {
-		$('#browseTerm').click(function() {
-			$('#navTerm').val('');
-		});	
-	};
+	$('#browseTerm').click(function() {
+		$('#navTerm').val('');
+	});	
 	
 
 // *****************************************************************************************************

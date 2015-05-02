@@ -88,21 +88,40 @@
   <div class="row">
     <div class="six columns">
       <button id="refresh">Refresh Search</button>
-      <h1 id="title" class="defaultTitle">Find Comics</h1>
-      <p id="comicDescription" class="defaultDesc">Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online.</p>
-      <section id="comicInfo" class="new">
-        <p class="optionOne"></p>
-        <p class="optionTwo"></p>
-        <p class="optionThree"></p>
-        <h1 id="loading"></h1>
-        <img src="/images/loading.gif" id="loadingGif">
+
+      <section id="browseOne">
+        <h1>Find Comics</h1>
+        <p>Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online.</p>
+      </section>
+
+      <section id="browseTwo">
+        <h1>Find Comics</h1>
+        <p>Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online.</p>
+        <p id="optionOne"></p>
+        <p id="optionTwo"></p>
+        <p id="optionThree"></p>
+      </section>
+
+      <section id="browseThree">
+        <h1 id="title"></h1>
+        <p id="comicDescription"></p>
         <p id="comicAvail"></p>
         <p><span id="rating"></span></p>
         <p id="upcoming"></p>
         <p><span id="creatorsNumber"></span></p>
         <a id="url" target="_blank"><p id="urlText"></p></a>
         <button id="save">Save This Series</button> 
-        <div id="saved"><h1>Saved!</h1></div>
+        <div id="saved"><h1>Saved!</h1></div>  
+      </section>
+
+      <section id="serverResponses">
+        <h1 id="response"></h1>
+        <p id="error">
+      </section>
+
+      <section id="browseLoading">
+        <h1 id="loading" class="testOne">Loading</h1>
+        <img src="/images/loading.gif" id="loadingGif" class="testTwo">
       </section> 
 
       <section id="fetch" class="defaultSearch">
@@ -112,7 +131,7 @@
     </div>
 
     <div class="six columns">
-    <section class="new">
+    <section class="browseFour">
       <img id="thumbnail" class="defaultThumb" src="/images/guardians.png">
       <p id="creators" style="color:black;"></p>
       <div id="ratingSystem">

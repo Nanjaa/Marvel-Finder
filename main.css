@@ -161,7 +161,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #creators, #loadingGif, #ratingSystem, #save, #saved, #myCalendar {
+#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved, #myCalendar {
 	display: none;
 }
 .content {
@@ -231,4 +231,5 @@ footer {
 	padding: 5px;
 	padding-top: 10px;
 	font-family: 'Gudea', sans-serif;	
+	font-size: 13px;
 }
