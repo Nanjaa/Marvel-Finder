@@ -62,7 +62,7 @@
     function savedTable() {
       var fullEvents = [];
       for(var i = 0; i < dataList.length; i++) {
-        var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
+        var newName = "<tr id='" + dataList[i]['seriesId'] + "'><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
         var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
         var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
         var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
@@ -94,13 +94,13 @@
     $('.icon-cancel-circled2-1').click(function() {
       var fullEvents = [];
       var rawKey = $(this).parent().siblings().get(0).id;
-      // var key = '"' + rawKey + '"';
       for(var i=0; i<dataList.length; i++) {
         if(dataList[i]['seriesName'] !== rawKey) {
           fullEvents.push(dataList[i]);
         }
         else {
-          console.log("item deleted: " + dataList[i]['seriesName'])
+          var deleteThis = "'#" + dataList[i]['seriesId'] + "'";
+          $(this).parent().parent().hide('slow');
         }
       }
       localStorage.setItem("allEntries", JSON.stringify(fullEvents));

@@ -315,6 +315,12 @@ $('#clear').click(function() {
 		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 			var info = json;
+
+			var seriesIdentification = info.data.results[0].series.name;
+			var seriesIdNoSpace = seriesIdentification.split(' ').join('');
+			var seriesIdNoLeft = seriesIdNoSpace.split('(').join('');
+			var seriesId = seriesIdNoLeft.split(')').join('');
+
 			var seriesName = info.data.results[0].series.name;
 			var seriesNext = info.data.results[0].title;
 			var getRelease = info.data.results[0].dates[0].date;
@@ -322,14 +328,15 @@ $('#clear').click(function() {
 			seriesRelease = seriesRelease[0];
 			var seriesDesc = info.data.results[0].description;
 			var seriesThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
-			addEntry(seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb);
+			addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb);
 		})
 	}
-	function addEntry(seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
+	function addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
 		if(existingEntries == null) {
 			existingEntries = [];
 		}
 		var entry = {
+			"seriesId": seriesId,
 			"seriesName": seriesName,
 			"seriesNext": seriesNext,
 			"seriesRelease": seriesRelease,
