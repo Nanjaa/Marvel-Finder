@@ -175,7 +175,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved, #calendarWrapper {
+#browseComics, #exampleCalendar, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
 	display: none;
 }
 .content {
@@ -238,6 +238,12 @@ h5 {
 #deleteMe {
 	text-align: center;
 }
+
+/************************** CALENDAR ************************/
+
+/*#calendar {
+	display: none;
+};*/
 
 /************************* MISC *******************/
 

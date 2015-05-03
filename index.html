@@ -46,10 +46,60 @@
 
 <script>
   $(document).ready(function() {
-    $('#calendar').fullCalendar({
+//  this function will be used to retrieve the data for BOTH the my comics page AND the my calendar page. 
 
-    })
+    var saveData = localStorage.getItem("allEntries")
+    var dataList = JSON.parse(saveData);
+// create a filled table that includes saved data
+    if(dataList != null) {
+      savedTable();
+    }
+    // else {
+    //   $('#calendar').hide();
+    //   $('#exampleCalendar').show();
+    // }
+// these functions are used in the if statement
+    function savedTable() {
+      var fullEvents = [];
+      for(var i = 0; i < dataList.length; i++) {
+        var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
+        var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
+        var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
+        var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
+        var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
+        var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
+
+        var calendarNext = dataList[i]["seriesNext"];
+        var calendarRelease = dataList[i]["seriesRelease"];
+        var calendarArray = {
+          title: calendarNext,
+          start: calendarRelease,
+          allDay: true
+        }
+        fullEvents[i] = calendarArray;
+        $('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb+deleteSeries);
+      }
+      makeCalendar(fullEvents);
+    }     
+
+    function makeCalendar(test) {
+      console.log(test);
+      $('#calendar').fullCalendar({
+        events: test
+      })
+      $('#calendar').hide();      
+    }
   });
+
+// this information V is for deleting stuff, which we'll fix later.
+
+    // $('.icon-cancel-circled2-1').click(function() {
+    //   var rawKey = $(this).parent().siblings().get(0).id;
+    //   var key = '"' + rawKey + '"';
+    //   localStorage.removeItem(key);
+    //   localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+    // })
+
 </script>
 
 
@@ -193,6 +243,14 @@
 <!-- ************************************** CALENDAR *********************** -->
 
   <div id="calendar"></div>
+  <div id="exampleCalendar">
+  <div class = "six columns">
+  <img src="/images/exampleCalendar.png">
+  </div>
+  <div class="six columns">
+  <p>hello</p>
+  </div>
+  </div>
 
 
 

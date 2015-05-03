@@ -381,38 +381,7 @@ $('#clear').click(function() {
 // ******** 																				    ********
 // *****************************************************************************************************
 
-var saveData = localStorage.getItem("allEntries")
-var dataList = JSON.parse(saveData);
 
-if(dataList != null) {
-	savedTable();
-}
-
-function savedTable() {
-	for(var i = 0; i < dataList.length; i++) {
-		var newName = "<tr><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
-		var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
-		var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
-		var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
-		var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
-		var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
-		$('#myComicsTable').append(newName+newNext+newRelease+newDesc+newThumb+deleteSeries);
-	}	
-}
-
-
-
-
-
-$('.icon-cancel-circled2-1').click(function() {
-	var rawKey = $(this).parent().siblings().get(0).id;
-	var key = '"' + rawKey + '"';
-	localStorage.removeItem(key);
-	localStorage.setItem("allEntries", JSON.stringify(existingEntries));
-	console.log(saveData);
-	console.log(existingEntries);
-	console.log(localStorage.getItem(key));
-})
 
 // *****************************************************************************************************
 // ******** 																					********
