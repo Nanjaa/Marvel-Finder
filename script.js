@@ -75,12 +75,12 @@ $('#clear').click(function() {
 // THE FOLLOWING IS THE MAIN FUNCTION FOR BROWSE COMICS. BELOW IT YOU WILL FIND THE FUNCTIONS CALLED WITHIN getSeries
 	function searchItem() {
 		if($('#navTerm').val() == '') {
-			var noSpaces = $('#browseTerm').val();
+			var noSpaces = $('#browseTerm').val().toLowerCase();
 			var series = noSpaces.split(' ').join('%20');
 			getSeries(series);
 		}
 		else {
-			var noSpaces = $('#navTerm').val();
+			var noSpaces = $('#navTerm').val().toLowerCase();
 			var series = noSpaces.split(' ').join('%20');
 			getSeries(series);
 		};	
@@ -138,29 +138,29 @@ $('#clear').click(function() {
 				function clickOptions(choiceNumber, IDOne, IDTwo, IDThree) {
 					if(choiceNumber = 1) {
 						ID = IDOne;
-						noSearch();
+						$('#save').show();
 						getInfo(ID);	
 						$('#save').click(function() {
 							getEntry(ID);
-							hideStats();
+							$('#saved').hide();
 						});					
 					}
 					else if(choiceNumber = 2) {
 						ID = IDTwo;
-						noSearch();
+						$('#save').show();
 						getInfo(ID);
 						$('#save').click(function() {
 							getEntry(ID);
-							hideStats();
+							$('#saved').hide();
 						});
 					}
 					else if(choiceNumber = 3) {
 						ID = IDThree;
-						noSearch();
+						$('#save').show();
 						getInfo(ID);
 						$('#save').click(function() {
 							getEntry(ID);
-							hideStats();
+							$('#saved').hide();
 						});
 					}
 				}
@@ -200,11 +200,6 @@ $('#clear').click(function() {
 		$('.optionOne').hide();
 		$('.optionTwo').hide();
 		$('.optionThree').hide();
-	}
-	function noSearch() {
-		$('#term').hide();
-		$('#search').hide();
-		$('#save').show();
 	}
 	function getInfo(ID) {
 		$('#serverResponses').hide();
@@ -348,13 +343,6 @@ $('#clear').click(function() {
 		hideGif();
 		console.log(entry);
 		console.log(existingEntries);
-	};
-	function hideStats() {
-		$('#rating').hide();
-		$('#creatorsNumber').hide();
-		$('#url').hide();
-		$('#saved').hide();
-
 	};
 	function showData() {
 		$('#saved').show();
