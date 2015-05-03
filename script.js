@@ -1,6 +1,6 @@
+
 $(document).ready(function() {
 // the following will be used to reset the browse comics
-
 $('#clear').click(function() {
 	localStorage.clear();
 })
@@ -13,26 +13,26 @@ $('#clear').click(function() {
 	function browseFunction() {
 		$('#mainPage').hide();
 		$('#myComicsList').hide();
-		$('#myCalendar').hide();
+		$('#calendar').hide();
 		$('#browseComics').fadeIn('slow');	
 	};
 	function homeFunction() {
 		$('#browseComics').hide();
 		$('#myComicsList').hide();
-		$('#myCalendar').hide();
+		$('#calendar').hide();
 		$('#mainPage').fadeIn('slow');	
 	};
 	function myComicsFunction() {
 		$('#browseComics').hide();
 		$('#mainPage').hide();
-		$('#myCalendar').hide();
+		$('#calendar').hide();
 		$('#myComicsList').fadeIn('slow');
 	}
 	function calendarFunction() {
 		$('#browseComics').hide();
 		$('#myComicsList').hide();
 		$('#mainPage').hide();
-		$('#myCalendar').fadeIn('slow');	
+		$('#calendar').fadeIn('slow');	
 	}
 
 	$('#title1').click(homeFunction);
@@ -40,7 +40,7 @@ $('#clear').click(function() {
 	$('#browse').click(browseFunction);
 	$('#home').click(homeFunction);
 	$('#myComics').click(myComicsFunction);
-	$('#calendar').click(calendarFunction);
+	$('#myCalendar').click(calendarFunction);
 	$('#marvelFinder').hover(
 		function() {
 			$('#title1').css('color', '#f78f3f');
@@ -139,17 +139,29 @@ $('#clear').click(function() {
 					if(choiceNumber = 1) {
 						ID = IDOne;
 						noSearch();
-						getInfo(ID);						
+						getInfo(ID);	
+						$('#save').click(function() {
+							getEntry(ID);
+							hideStats();
+						});					
 					}
 					else if(choiceNumber = 2) {
 						ID = IDTwo;
 						noSearch();
 						getInfo(ID);
+						$('#save').click(function() {
+							getEntry(ID);
+							hideStats();
+						});
 					}
 					else if(choiceNumber = 3) {
 						ID = IDThree;
 						noSearch();
 						getInfo(ID);
+						$('#save').click(function() {
+							getEntry(ID);
+							hideStats();
+						});
 					}
 				}
 
@@ -170,41 +182,6 @@ $('#clear').click(function() {
 					$('#response').text('Please choose a series above');
 					hideGif();
 					getOptions(marvel, count);	
-
-// retrieve the information for option one
-					// $('.optionOne').click(function() {
-					// 	noOptions();
-					// 	noSearch();
-					// 	var ID = json.data.results[i].id;
-					// 	getInfo(ID);
-					// 	$('#save').click(function() {
-					// 		getEntry(ID);
-					// 		hideStats();
-					// 	});
-					// });
-// retrieve the information for option two
-					// $('.optionTwo').click(function() {
-					// 	noOptions();
-					// 	noSearch();
-					// 	var ID = json.data.results[1].id;
-					// 	getInfo(ID);
-					// 	$('#save').click(function() {
-					// 		getEntry(ID);
-					// 		hideStats()
-					// 	});
-					// });
-// retrieve the information for option three
-					// $('.optionThree').click(function() {
-					// 	noOptions();
-					// 	noSearch();
-					// 	var ID = json.data.results[2].id;
-					// 	getInfo(ID);
-					// 	$('#save').click(function() {
-					// 		getEntry(ID);
-					// 		hideStats();
-
-					// 	});
-					// });
 				};		
 			});
 		};
@@ -396,22 +373,7 @@ $('#clear').click(function() {
 	$('#browseTerm').click(function() {
 		$('#navTerm').val('');
 	});	
-	
 
-
-
-
-						// $('.optionThree').click(function() {
-					// 	noOptions();
-					// 	noSearch();
-					// 	var ID = json.data.results[2].id;
-					// 	getInfo(ID);
-					// 	$('#save').click(function() {
-					// 		getEntry(ID);
-					// 		hideStats();
-
-					// 	});
-					// });
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -457,9 +419,6 @@ $('.icon-cancel-circled2-1').click(function() {
 // ******** 								CALENDAR										    ********
 // ******** 																				    ********
 // *****************************************************************************************************
-
-
-
 
 
 });

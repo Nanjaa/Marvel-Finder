@@ -1,3 +1,17 @@
+#calendar {
+	margin: 5%;
+	padding: 3%;
+	background-color: white;
+	border: 3px solid #518cca;
+	font-family: 'Quicksand', sans-serif;
+}
+h2 {
+	color: #e23636;
+}
+
+
+
+
 /************ UNIVERSAL **************************/
 
 /*navbar*/
@@ -161,7 +175,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved, #myCalendar {
+#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved, #calendarWrapper {
 	display: none;
 }
 .content {

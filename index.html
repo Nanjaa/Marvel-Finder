@@ -26,9 +26,35 @@
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="css/fontello.css">
 
+  <link rel="stylesheet" href="calendar/fullcalendar.css">
+
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/mIcon.png">
+
+
+
+
+
+  <!-- TEST!!! -->
+
+<script src="calendar/lib/moment.min.js"></script>
+<script src="calendar/lib/jquery.min.js"></script>
+<script src="calendar/fullcalendar.js"></script>
+
+<script src="script.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+
+    })
+  });
+</script>
+
+
+
+
 
 </head>
 <body>
@@ -44,7 +70,7 @@
       <button id="home">Home</button>
       <button id="browse">Browse</button>
       <button id="myComics">My Comics</button>
-      <button id="calendar">Calendar</button>
+      <button id="myCalendar">Calendar</button>
       <section id="fetch2">
         <input type="text" placeholder="search" id="navTerm" class="term" />
         <button id="navSearch" class="searchButton">Go</button>
@@ -166,8 +192,7 @@
 
 <!-- ************************************** CALENDAR *********************** -->
 
-
-
+  <div id="calendar"></div>
 
 
 
@@ -197,9 +222,6 @@
   <!-- footer -->
 
   <footer>Data provided by Marvel. All images are © 2015 <a href="https://marvel.com">Marvel</a>. If you have any questions, or anything isn't working, please email me at <a href="mailto:nanja.space@gmail.com">nanja.space@gmail.com</a></footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="script.js"></script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
