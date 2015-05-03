@@ -178,6 +178,10 @@ h5 {
 #browseComics, #exampleCalendar, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
 	display: none;
 }
+#response {
+	color: #e23636;
+	font-size: 30px;
+}
 .content {
 	padding: 50px;
 	text-align: center;

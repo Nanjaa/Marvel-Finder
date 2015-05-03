@@ -86,11 +86,32 @@ $('#clear').click(function() {
 		};	
 	};
 
+
+	function showBrowseOne() {
+		$('#browseOne').show();
+		$('#browseTwo').hide();
+		$('#browseThree').hide();
+	}
+	function showBrowseTwo() {
+		$('#browseOne').hide();
+		$('#browseTwo').show();
+		$('#browseThree').hide();
+	}
+	function showBrowseThree() {
+		$('#browseOne').hide();
+		$('#browseTwo').hide();
+		$('#browseThree').show();
+	}
+
+
 	function getSeries(series) {
 		if(series == '') {
+			$('#serverResponses').show();
 			$('#response').text('What would you like to search for?');
+			showBrowseOne();
 		}
 		else {
+			$('#serverResponses').hide();
 			showGif();
 // retrieve the series information from the API
 			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
@@ -108,7 +129,8 @@ $('#clear').click(function() {
 
 								var IDOne = marvel.data.results[i].id;
 
-								$('#optionOne').on('click', function() {
+								$('#optionOne').click(function() {
+									$('#serverResponses').hide();
 									var choiceNumber = 1;
 									clickOptions(choiceNumber, IDOne)
 								})
@@ -118,6 +140,7 @@ $('#clear').click(function() {
 								var IDTwo = marvel.data.results[i].id;
 
 								$('#optionTwo').click(function() {
+									$('#serverResponses').hide();
 									var choiceNumber = 2;
 									clickOptions(choiceNumber, IDTwo)									
 								})
@@ -127,6 +150,7 @@ $('#clear').click(function() {
 								var IDThree = marvel.data.results[i].id;
 
 								$('#optionThree').click(function() {
+									$('#serverResponses').hide();
 									var choiceNumber = 3	
 									clickOptions(choiceNumber, IDThree)								
 								})
@@ -167,6 +191,7 @@ $('#clear').click(function() {
 
 // respond if there is no data
 				if(typeof json.data.results[0] == 'undefined') {
+					showBrowseOne();
 					hideGif();
 					$('#serverResponses').show();
 					$('#response').text('No Results Found');
@@ -174,11 +199,9 @@ $('#clear').click(function() {
 				}
 // provide user with three series options
 				else {
-					$('#browseOne').hide();
-					$('#browseTwo').show();
-					$('#response').show();
-					$('#error').hide();
+					showBrowseTwo();
 					var marvel = json
+					$('#serverResponses').show();
 					$('#response').text('Please choose a series above');
 					hideGif();
 					getOptions(marvel, count);	
