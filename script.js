@@ -101,40 +101,56 @@ $('#clear').click(function() {
 				var count = 0;
 				function getOptions(marvel, count) {
 					for(var i = 0; i < (marvel.data.results).length; i++) {
-						console.log(marvel.data.results[i].creators.available);
 						if(marvel.data.results[i].creators.available !== 0) {
 							count = count + 1;
 							if(count === 1) {
 								$('#optionOne').text(marvel.data.results[i].title);
-								var ID = marvel.data.results[i].id;
-								// $('.optionOne').click(clickOptions(ID));
+
+								var IDOne = marvel.data.results[i].id;
+
+								$('#optionOne').on('click', function() {
+									var choiceNumber = 1;
+									clickOptions(choiceNumber, IDOne)
+								})
 							}
 							else if(count === 2) {
 								$('#optionTwo').text(marvel.data.results[i].title);
-								var ID = marvel.data.results[i].id;
-								// $('.optionTwo').click(clickOptions(ID));
+								var IDTwo = marvel.data.results[i].id;
+
+								$('#optionTwo').click(function() {
+									var choiceNumber = 2;
+									clickOptions(choiceNumber, IDTwo)									
+								})
 							}
 							else if(count === 3) {
 								$('#optionThree').text(marvel.data.results[i].title)
-								var ID = marvel.data.results[i].id;
-								// $('.optionThree').click(clickOptions(ID));
+								var IDThree = marvel.data.results[i].id;
+
+								$('#optionThree').click(function() {
+									var choiceNumber = 3	
+									clickOptions(choiceNumber, IDThree)								
+								})
 								return;
 							}
 						}
 					}
 				}
-				$('#optionOne').click(function() {
-					console.log(ID);
-				})
-				function clickOptions(ID) {
-					console.log(ID)
-					// noOptions();
-					// noSearch();
-					// getInfo(ID);
-					// $('#save').click(function() {
-					// 	getEntry(ID);
-					// 	hideStats();
-					// })
+				function clickOptions(choiceNumber, IDOne, IDTwo, IDThree) {
+					if(choiceNumber = 1) {
+						ID = IDOne;
+						noSearch();
+						getInfo(ID);						
+					}
+					else if(choiceNumber = 2) {
+						ID = IDTwo;
+						noSearch();
+						getInfo(ID);
+					}
+					else if(choiceNumber = 3) {
+						ID = IDThree;
+						noSearch();
+						getInfo(ID);
+					}
 				}
 
 // respond if there is no data
@@ -196,12 +212,10 @@ $('#clear').click(function() {
 	};
 // The below functions are in order of when they are called in the above function
 	function showGif() {
-		console.log("the gif should be shown");
 		$('#loading').show();
 		$('#loadingGif').show();
 	};
 	function hideGif() {
-		console.log("the gif should be hidden");
 		$('#loading').hide();
 		$('#loadingGif').hide();
 	}
@@ -383,6 +397,21 @@ $('#clear').click(function() {
 		$('#navTerm').val('');
 	});	
 	
+
+
+
+
+						// $('.optionThree').click(function() {
+					// 	noOptions();
+					// 	noSearch();
+					// 	var ID = json.data.results[2].id;
+					// 	getInfo(ID);
+					// 	$('#save').click(function() {
+					// 		getEntry(ID);
+					// 		hideStats();
+
+					// 	});
+					// });
 
 // *****************************************************************************************************
 // ******** 																					********
