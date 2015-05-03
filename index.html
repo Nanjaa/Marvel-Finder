@@ -83,22 +83,29 @@
     }     
 
     function makeCalendar(test) {
-      console.log(test);
       $('#calendar').fullCalendar({
         events: test
       })
       $('#calendar').hide();      
     }
-  });
 
 // this information V is for deleting stuff, which we'll fix later.
 
-    // $('.icon-cancel-circled2-1').click(function() {
-    //   var rawKey = $(this).parent().siblings().get(0).id;
-    //   var key = '"' + rawKey + '"';
-    //   localStorage.removeItem(key);
-    //   localStorage.setItem("allEntries", JSON.stringify(existingEntries));
-    // })
+    $('.icon-cancel-circled2-1').click(function() {
+      var fullEvents = [];
+      var rawKey = $(this).parent().siblings().get(0).id;
+      // var key = '"' + rawKey + '"';
+      for(var i=0; i<dataList.length; i++) {
+        if(dataList[i]['seriesName'] !== rawKey) {
+          fullEvents.push(dataList[i]);
+        }
+        else {
+          console.log("item deleted: " + dataList[i]['seriesName'])
+        }
+      }
+      localStorage.setItem("allEntries", JSON.stringify(fullEvents));
+    })
+  });
 
 </script>
 
