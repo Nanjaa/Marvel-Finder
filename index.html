@@ -53,11 +53,12 @@
 // create a filled table that includes saved data
     if(dataList != null) {
       savedTable();
+      console.log("calendar will be shown");
     }
-    // else {
-    //   $('#calendar').hide();
-    //   $('#exampleCalendar').show();
-    // }
+    else {
+      console.log("calendar will not be shown")
+      // $('#calendar').css('display', 'none');
+    }
 // these functions are used in the if statement
     function savedTable() {
       var fullEvents = [];
@@ -262,12 +263,12 @@
 
   <div id="calendar"></div>
   <div id="exampleCalendar">
-  <div class = "six columns">
-  <img src="/images/exampleCalendar.png">
-  </div>
-  <div class="six columns">
-  <p>hello</p>
-  </div>
+    <div class="six columns">
+      <img src="images/exampleCalendar.png">
+    </div>
+    <div class="three columns">
+      <p>hello</p>
+    </div>
   </div>
 
 

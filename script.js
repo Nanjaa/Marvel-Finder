@@ -73,6 +73,30 @@ $('#clear').click(function() {
 // Call the functions you will read about below
 
 // THE FOLLOWING IS THE MAIN FUNCTION FOR BROWSE COMICS. BELOW IT YOU WILL FIND THE FUNCTIONS CALLED WITHIN getSeries
+	function newSearch() {
+		$('#optionOne').text('');
+		$('#optionTwo').text('');
+		$('#optionThree').text('')
+		var IDOne = null;
+		var IDTwo = null;
+		var IDThree = null;
+		var ID = null;
+		var marvel = null;
+		var count = null;
+		var creatorsList = null;
+		var seriesIdentification = null;
+		var seriesIdNoSpace = null;
+		var seriesIdNoLeft = null;
+		var seriesId = null;
+		var seriesName = null;
+		var seriesNext = null;
+		var seriesRelease = null;
+		var seriesDesc = null;
+		var seriesThumb = null;
+		var getRelease = null;
+		var entry = null;
+
+	}
 	function searchItem() {
 		if($('#navTerm').val() == '') {
 			var noSpaces = $('#browseTerm').val().toLowerCase();
@@ -82,6 +106,7 @@ $('#clear').click(function() {
 		else {
 			var noSpaces = $('#navTerm').val().toLowerCase();
 			var series = noSpaces.split(' ').join('%20');
+			newSearch();
 			getSeries(series);
 		};	
 	};
@@ -118,7 +143,6 @@ $('#clear').click(function() {
 // retrieve the series information from the API
 			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 // retrieve the information for option one
-
 				var count = 0;
 				function getOptions(marvel, count) {
 					for(var i = 0; i < (marvel.data.results).length; i++) {
@@ -382,12 +406,15 @@ $('#clear').click(function() {
 	$('.searchButton').click(searchItem);
 	$('.term').keyup(function(event) {
 		if(event.keyCode == 13) {
+			newSearch();
 			searchItem();
 			browseFunction();
+
 		}
 	});
 
 	$('#browseTerm').click(function() {
+		newSearch();
 		$('#navTerm').val('');
 	});	
 

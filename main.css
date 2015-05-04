@@ -175,7 +175,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #exampleCalendar, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
+#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
 	display: none;
 }
 #response {
@@ -269,6 +269,13 @@ h5 {
 }
 #calendar {
 	cursor: default !important;
+}
+
+
+
+#exampleCalendar {
+	border: 5px solid pink;
+	display: block;
 }
 /************************* MISC *******************/
 
