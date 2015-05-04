@@ -245,10 +245,31 @@ h5 {
 
 /************************** CALENDAR ************************/
 
-/*#calendar {
+.fc-today {
+	background: none repeat scroll 0 0 #F78F3F !important;
+}
+.fc-right {
 	display: none;
-};*/
-
+}
+.fc td {
+	border-color: black !important;
+}
+.fc th {
+	border: none !important;
+	font-size: 20px;
+	padding-bottom: 0px;
+	padding-top: 2%;
+}
+.fc-basic-view .fc-week-number, .fc-basic-view .fc-day-number {
+	font-size: 20px;
+	padding: 5px;
+}
+.fc-day-header {
+	color: #518cca;
+}
+#calendar {
+	cursor: default !important;
+}
 /************************* MISC *******************/
 
 footer {

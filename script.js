@@ -101,6 +101,7 @@ $('#clear').click(function() {
 		$('#browseOne').hide();
 		$('#browseTwo').hide();
 		$('#browseThree').show();
+		$('#saved').hide();
 	}
 
 
@@ -113,10 +114,9 @@ $('#clear').click(function() {
 		else {
 			$('#serverResponses').hide();
 			showGif();
+
 // retrieve the series information from the API
 			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-// functions that will be used in the below chunks
-
 // retrieve the information for option one
 
 				var count = 0;
@@ -371,7 +371,6 @@ $('#clear').click(function() {
 		localStorage.setItem("allEntries", JSON.stringify(existingEntries));
 		showData();
 		hideGif();
-		console.log(entry);
 		console.log(existingEntries);
 	};
 	function showData() {
@@ -406,6 +405,45 @@ $('#clear').click(function() {
 // ******** 								CALENDAR										    ********
 // ******** 																				    ********
 // *****************************************************************************************************
+
+
+
+// *****************************************************************************************************
+// ******** 																					********
+// ******** 								MEDIA QUERIES									    ********
+// ******** 																				    ********
+// ***************************************************************************************************** 
+
+	// $('#mediaDropdown').click(function() {
+	// 	$('#dropdownContent').toggle();
+	// })
+
+	// console.log(dropToggle);
+
+
+	// $('#mediaDropdown').click(function() {
+	// 	console.log("1: " + $(this).data('dropStatus'));
+	// 	dropFunction();
+	// });
+
+
+	$('#mediaDropdown').click(function() {
+		if($(this).data('dropStatus') == true) {
+			$(this).data('dropStatus', false);
+			$('#dropdownContent').slideUp();
+		}
+		else {
+			$(this).data('dropStatus', true);
+			$('#dropdownContent').slideDown();	
+		};	
+	});
+
+
+	$('#mediaHome').click(homeFunction);
+	$('#mediaBrowse').click(browseFunction);
+	$('#mediaMyComics').click(myComicsFunction);
+	$('#mediaMyCalendar').click(calendarFunction);
+
 
 
 });

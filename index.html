@@ -63,11 +63,11 @@
       var fullEvents = [];
       for(var i = 0; i < dataList.length; i++) {
         var newName = "<tr id='" + dataList[i]['seriesId'] + "'><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
-        var newNext = "<td id = 'newComicNext'>" + dataList[i]["seriesNext"] + "</td>";
-        var newRelease = "<td>" + dataList[i]["seriesRelease"] + "</td>";
-        var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
+        var newNext = "<td class = 'noMedia'>" + dataList[i]["seriesNext"] + "</td>";
+        var newRelease = "<td id = 'newComicRelease'>" + dataList[i]["seriesRelease"] + "</td>";
+        var newDesc = "<td class = 'noMedia noMediaLarge'>" + dataList[i]["seriesDesc"] + "</td>";
         var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
-        var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
+        var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1 noMedia noMediaLarge'></i></td></tr>";
 
         var calendarNext = dataList[i]["seriesNext"];
         var calendarRelease = dataList[i]["seriesRelease"];
@@ -123,11 +123,22 @@
 <div class="wrapper" id = "navBarWrapper">
     <div class="navBar">
       <h1 id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
-      <button id="clear">Clear</button>
-      <button id="home">Home</button>
-      <button id="browse">Browse</button>
-      <button id="myComics">My Comics</button>
-      <button id="myCalendar">Calendar</button>
+      <button id="clear" class="noMedia">Clear</button>
+      <button id="home" class="noMedia">Home</button>
+      <button id="browse" class="noMedia">Browse</button>
+      <button id="myComics" class="noMedia">My Comics</button>
+      <button id="myCalendar" class="noMedia">Calendar</button>
+
+ <!--      <div id="mediaDropdown">
+        <button id="clickDropdown">Dropdown</button>
+        <div id="dropdownContent">
+          <p id="mediaHome">Home</p>
+          <p id="mediaBrowse">Browse</p>
+          <p id="mediaMyComics">My Comics</p>
+          <p id="mediaMyCalendar">Calendar</p>
+        </div>
+      </div> -->
+
       <section id="fetch2">
         <input type="text" placeholder="search" id="navTerm" class="term" />
         <button id="navSearch" class="searchButton">Go</button>
@@ -146,7 +157,7 @@
   <div class="row" id="eyePopper">
     <div class="six columns" id="hook">
       <h3 id = "primaryOne">Your comics,</h3><h3 id = "primaryTwo">made easy!</h3>
-      <p>Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online!</p>
+      <p class = "noMedia" id = "eyePopperText">Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online!</p>
     </div>
   </div>
 
@@ -237,11 +248,11 @@
 <table id="myComicsTable">
   <tr id="tableIndex">
     <th>Series Name</th>
-    <th>Next Issue</th>
+    <th class= "noMedia">Next Issue</th>
     <th>Release Date</th>
-    <th>Description</th>
+    <th class = "noMedia noMediaLarge">Description</th>
     <th>Thumbnail</th>
-    <th>Delete</th>
+    <th class = "noMedia noMediaLarge">Delete</th>
   </tr>
 </table>
 
