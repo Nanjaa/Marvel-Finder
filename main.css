@@ -13,6 +13,11 @@ h2 {
 
 
 /************ UNIVERSAL **************************/
+.testWrapper {
+	margin: 0;
+	padding: 0;
+}
+
 
 /*navbar*/
 .wrapper {
@@ -167,6 +172,9 @@ h5 {
 	padding-right: 40px;
 	border-radius: 300px 0px 300px / 300px 0px;
 	border: 3px solid #f78f3f;
+}
+#eyePopperText {
+	color: black;
 }
 #siteDesc {
 	padding-left: 5%;

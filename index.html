@@ -123,12 +123,12 @@
 <!-- nav bar -->
 <div class="wrapper" id = "navBarWrapper">
     <div class="navBar">
-      <h1 id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
-      <button id="clear" class="noMedia">Clear</button>
-      <button id="home" class="noMedia">Home</button>
-      <button id="browse" class="noMedia">Browse</button>
-      <button id="myComics" class="noMedia">My Comics</button>
-      <button id="myCalendar" class="noMedia">Calendar</button>
+      <h1 class = "navigate goHome" id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
+      <button id="clear" class="navigate noMedia">Clear</button>
+      <button id="home" class="navigate noMedia goHome">Home</button>
+      <button id="browse" class="navigate noMedia goBrowse">Browse</button>
+      <button id="myComics" class="navigate noMedia goMyComics">My Comics</button>
+      <button id="myCalendar" class="navigate noMedia goCalendar">Calendar</button>
 
  <!--      <div id="mediaDropdown">
         <button id="clickDropdown">Dropdown</button>
@@ -142,7 +142,7 @@
 
       <section id="fetch2">
         <input type="text" placeholder="search" id="navTerm" class="term" />
-        <button id="navSearch" class="searchButton">Go</button>
+        <button id="navSearch" class="searchButton goBrowse">Go</button>
       </seciton>
     </div>
 </div>
@@ -151,10 +151,10 @@
 
 
 <!-- ********************* MAIN PAGE **************************** -->
-
+<div class="testWrapper">
   <!-- eye catcher -->
 
-<div class="contentWrapper" id="mainPage">
+<div class="content" id="mainPage">
   <div class="row" id="eyePopper">
     <div class="six columns" id="hook">
       <h3 id = "primaryOne">Your comics,</h3><h3 id = "primaryTwo">made easy!</h3>
@@ -165,13 +165,13 @@
   <!-- 3 columns -->
 
   <div class="row" id="siteDesc">
-    <div class="four columns picLink" id="spiderman">
+    <div class="four columns picLink navigate goBrowse" id="spiderman">
       <h5>Find Comics</h5>
     </div>
-    <div class="four columns picLink" id="deadpool">
+    <div class="four columns picLink navigate goMyComics" id="deadpool">
       <h5>Save Your Favorites</h5>
     </div>
-    <div class="four columns picLink" id="ghostRider">
+    <div class="four columns picLink navigate goCalendar" id="ghostRider">
       <h5>Keep Track</h5>
     </div>
   </div>
@@ -216,7 +216,7 @@
 
       <section id="browseLoading">
         <h1 id="loading" class="testOne">Loading</h1>
-        <img src="/images/loading.gif" id="loadingGif" class="testTwo">
+        <img src="/images/loading.gif" id="loadingGif" class="testTwo">`
       </section> 
 
       <section id="fetch" class="defaultSearch">
@@ -260,19 +260,17 @@
 </div>
 
 <!-- ************************************** CALENDAR *********************** -->
-
-  <div id="calendar"></div>
-  <div id="exampleCalendar">
+  <div id="calendar" class = "content"></div>
+  <!-- <div id="exampleCalendar">
     <div class="six columns">
       <img src="images/exampleCalendar.png">
     </div>
     <div class="three columns">
       <p>hello</p>
     </div>
-  </div>
+  </div> -->
 
-
-
+</div>
 
 
 

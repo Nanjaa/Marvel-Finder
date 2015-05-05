@@ -10,37 +10,27 @@ $('#clear').click(function() {
 // ******** 							UNIVERSAL FUNCTIONS									    ********
 // ******** 																				    ********
 // *****************************************************************************************************
-	function browseFunction() {
-		$('#mainPage').hide();
-		$('#myComicsList').hide();
-		$('#calendar').hide();
-		$('#browseComics').fadeIn('slow');	
-	};
-	function homeFunction() {
-		$('#browseComics').hide();
-		$('#myComicsList').hide();
-		$('#calendar').hide();
-		$('#mainPage').fadeIn('slow');	
-	};
-	function myComicsFunction() {
-		$('#browseComics').hide();
-		$('#mainPage').hide();
-		$('#calendar').hide();
-		$('#myComicsList').fadeIn('slow');
-	}
-	function calendarFunction() {
-		$('#browseComics').hide();
-		$('#myComicsList').hide();
-		$('#mainPage').hide();
-		$('#calendar').fadeIn('slow');	
-	}
 
-	$('#title1').click(homeFunction);
-	$('#title2').click(homeFunction);
-	$('#browse').click(browseFunction);
-	$('#home').click(homeFunction);
-	$('#myComics').click(myComicsFunction);
-	$('#myCalendar').click(calendarFunction);
+
+// navigate the site through navBar buttons, as well as the deadpool, spiderman, and ghostrider pictures
+	$('.navigate').click(function() {
+		$('div.content').hide();
+		
+		if($(this).hasClass('goHome')) {
+			$('div.content#mainPage').fadeIn('slow');
+		}
+		else if($(this).hasClass('goBrowse')) {
+			$('div.content#browseComics').fadeIn('slow');
+		}
+		else if($(this).hasClass('goMyComics')) {
+			$('div.content#myComicsList').fadeIn('slow');
+		}
+		else if($(this).hasClass('goCalendar')) {
+			$('div.content#calendar').fadeIn('slow');
+		}
+	})
+
+// changes the colors of the logo
 	$('#marvelFinder').hover(
 		function() {
 			$('#title1').css('color', '#f78f3f');
@@ -51,18 +41,9 @@ $('#clear').click(function() {
 			$('#title2').css('color', 'black');
 		}
 	);
+
 	var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
 	$('.term').val('')
-
-// *****************************************************************************************************
-// ******** 																					********
-// ******** 									MAIN PAGE									    ********
-// ******** 																				    ********
-// *****************************************************************************************************
-
-	$('#spiderman').click(browseFunction);
-	$('#deadpool').click(myComicsFunction);
-	$('#ghostRider').click(calendarFunction);
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -77,25 +58,6 @@ $('#clear').click(function() {
 		$('#optionOne').text('');
 		$('#optionTwo').text('');
 		$('#optionThree').text('')
-		var IDOne = null;
-		var IDTwo = null;
-		var IDThree = null;
-		var ID = null;
-		var marvel = null;
-		var count = null;
-		var creatorsList = null;
-		var seriesIdentification = null;
-		var seriesIdNoSpace = null;
-		var seriesIdNoLeft = null;
-		var seriesId = null;
-		var seriesName = null;
-		var seriesNext = null;
-		var seriesRelease = null;
-		var seriesDesc = null;
-		var seriesThumb = null;
-		var getRelease = null;
-		var entry = null;
-
 	}
 	function searchItem() {
 		if($('#navTerm').val() == '') {
@@ -142,8 +104,31 @@ $('#clear').click(function() {
 
 // retrieve the series information from the API
 			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-// retrieve the information for option one
+// retrieve the information for option one 
+				// var choiceNumber = null;
+				// var IDOne = null;
+				// var IDTwo = null;
+				// var IDThree = null;
+				$('#optionThree').unbind('click');
 				var count = 0;
+
+				function testfunction(marvel) {
+					var count = 0;
+					for (var i = 0; i < marvel.data.results.length; i++) {
+						if (marvel.data.results[i].creators.available !== 0) {
+							count = count + 1;
+							$('.option:eq(' + (count - 1) + ')').text(marvel.data.results[i].title);
+							$('.option:eq(' + (count - 1) + ')').click(function() {
+								$('#serverResponses').hide();
+								clickOptions(marvel.data.results[i].id);
+							})
+							if (count === 3) {
+								return;
+							}
+						}
+					}
+				}
+
 				function getOptions(marvel, count) {
 					for(var i = 0; i < (marvel.data.results).length; i++) {
 						if(marvel.data.results[i].creators.available !== 0) {
@@ -152,65 +137,51 @@ $('#clear').click(function() {
 								$('#optionOne').text(marvel.data.results[i].title);
 
 								var IDOne = marvel.data.results[i].id;
-
 								$('#optionOne').click(function() {
 									$('#serverResponses').hide();
+									console.log(1);
 									var choiceNumber = 1;
-									clickOptions(choiceNumber, IDOne)
+									clickOptions(IDOne);
 								})
 							}
 							else if(count === 2) {
 								$('#optionTwo').text(marvel.data.results[i].title);
 								var IDTwo = marvel.data.results[i].id;
+								console.log(marvel.data.results[i])
+
 
 								$('#optionTwo').click(function() {
+									console.log(2);
 									$('#serverResponses').hide();
 									var choiceNumber = 2;
-									clickOptions(choiceNumber, IDTwo)									
+									clickOptions(IDTwo);									
 								})
 							}
 							else if(count === 3) {
-								$('#optionThree').text(marvel.data.results[i].title)
+								$('#optionThree').text(marvel.data.results[i].title);
 								var IDThree = marvel.data.results[i].id;
 
 								$('#optionThree').click(function() {
+									console.log(3);
 									$('#serverResponses').hide();
-									var choiceNumber = 3	
-									clickOptions(choiceNumber, IDThree)								
+									var choiceNumber = 3;
+									clickOptions(IDThree);								
 								})
+								
 								return;
 							}
 						}
 					}
 				}
-				function clickOptions(choiceNumber, IDOne, IDTwo, IDThree) {
-					if(choiceNumber = 1) {
-						ID = IDOne;
-						$('#save').show();
+				
+				function clickOptions(ID) {
+					$('#save').show();
 						getInfo(ID);	
-						$('#save').click(function() {
+					$('#save').click(function() {
 							getEntry(ID);
 							$('#saved').hide();
 						});					
-					}
-					else if(choiceNumber = 2) {
-						ID = IDTwo;
-						$('#save').show();
-						getInfo(ID);
-						$('#save').click(function() {
-							getEntry(ID);
-							$('#saved').hide();
-						});
-					}
-					else if(choiceNumber = 3) {
-						ID = IDThree;
-						$('#save').show();
-						getInfo(ID);
-						$('#save').click(function() {
-							getEntry(ID);
-							$('#saved').hide();
-						});
-					}
+
 				}
 
 // respond if there is no data
@@ -254,10 +225,11 @@ $('#clear').click(function() {
 		$('#browseThree').show();
 		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-			var test = json
+			var test = json;
 			printInfo(test);
 		});
 	};
+
 	function printInfo(test) {
 		hideGif();
 		$('#title').text(test.data.results[0].title);
@@ -406,9 +378,11 @@ $('#clear').click(function() {
 	$('.searchButton').click(searchItem);
 	$('.term').keyup(function(event) {
 		if(event.keyCode == 13) {
+			$('div.content').hide();
+			$('div.content#browseComics').fadeIn('slow');
 			newSearch();
 			searchItem();
-			browseFunction();
+			$()
 
 		}
 	});
@@ -454,22 +428,22 @@ $('#clear').click(function() {
 	// });
 
 
-	$('#mediaDropdown').click(function() {
-		if($(this).data('dropStatus') == true) {
-			$(this).data('dropStatus', false);
-			$('#dropdownContent').slideUp();
-		}
-		else {
-			$(this).data('dropStatus', true);
-			$('#dropdownContent').slideDown();	
-		};	
-	});
+	// $('#mediaDropdown').click(function() {
+	// 	if($(this).data('dropStatus') == true) {
+	// 		$(this).data('dropStatus', false);
+	// 		$('#dropdownContent').slideUp();
+	// 	}
+	// 	else {
+	// 		$(this).data('dropStatus', true);
+	// 		$('#dropdownContent').slideDown();	
+	// 	};	
+	// });
 
 
-	$('#mediaHome').click(homeFunction);
-	$('#mediaBrowse').click(browseFunction);
-	$('#mediaMyComics').click(myComicsFunction);
-	$('#mediaMyCalendar').click(calendarFunction);
+	// $('#mediaHome').click(homeFunction);
+	// $('#mediaBrowse').click(browseFunction);
+	// $('#mediaMyComics').click(myComicsFunction);
+	// $('#mediaMyCalendar').click(calendarFunction);
 
 
 
