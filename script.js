@@ -11,7 +11,6 @@ $('#clear').click(function() {
 // ******** 																				    ********
 // *****************************************************************************************************
 
-
 // navigate the site through navBar buttons, as well as the deadpool, spiderman, and ghostrider pictures
 	$('.navigate').click(function() {
 		$('div.content').hide();
@@ -60,7 +59,6 @@ $('#clear').click(function() {
 			var navValue = $('#navTerm').val();
 
 			if($('#browseTerm').val() == '') {
-				console.log(navValue);
 				searchItem(navValue);
 			}
 			else {
@@ -86,7 +84,6 @@ $('#clear').click(function() {
 			showBrowseOne();
 		}
 		else {
-			console.log(value);
 			var noSpaces = value.toLowerCase();
 			var series = noSpaces.split(' ').join('%20');
 			getSeries(series);
@@ -94,34 +91,13 @@ $('#clear').click(function() {
 	};
 
 
-// This provides the user with three options to choose as a result of the search
-	function getOptions(marvel) {
-		var count = 0;
-		for (var i = 0; i < marvel.data.results.length; i++) {
-			if (marvel.data.results[i].creators.available !== 0) {
-				count = count + 1;
-				$('.option:eq(' + (count - 1) + ')').text(marvel.data.results[i].title);
-				$('.option:eq(' + (count - 1) + ')').click(function() {
-					$('#serverResponses').hide();
-					clickOptions(marvel.data.results[i].id);
-				})
-				if (count === 3) {
-					return;
-				}
-			}
-		}
-	}
-
 // This searches for more details based on the user's choice of series
 	function getSeries(series) {
 		$('#serverResponses').hide();
 		showGif();
-
 // retrieve the series information from the API
 		$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-			$('#optionOne').unbind('click');
-			$('#optionTwo').unbind('click');
-			$('#optionThree').unbind('click');
+			unbindOptions();
 			var count = 0;
 
 // respond if there is no data
@@ -146,56 +122,40 @@ $('#clear').click(function() {
 	};
 
 
-	function getOptions(marvel, count) {
-		for(var i = 0; i < (marvel.data.results).length; i++) {
-			if(marvel.data.results[i].creators.available !== 0) {
-				count = count + 1;
-				if(count === 1) {
-					$('#optionOne').text(marvel.data.results[i].title);
-					var IDOne = marvel.data.results[i].id;
-					$('#optionOne').click(function() {
-						$('#serverResponses').hide();
-						clickOptions(IDOne);
-					})
-				}
-				else if(count === 2) {
-					$('#optionTwo').text(marvel.data.results[i].title);
-					var IDTwo = marvel.data.results[i].id;
-					console.log(marvel.data.results[i])
-					$('#optionTwo').click(function() {
-						$('#serverResponses').hide();
-						clickOptions(IDTwo);									
-					})
-				}
-				else if(count === 3) {
-					$('#optionThree').text(marvel.data.results[i].title);
-					var IDThree = marvel.data.results[i].id;
 
-					$('#optionThree').click(function() {
-						$('#serverResponses').hide();
-						clickOptions(IDThree);								
-					})
-					
+// This provides the user with three options to choose as a result of the search
+	function getOptions(marvel) {
+		var count = 0;
+		for (var i = 0; i < marvel.data.results.length; i++) {
+			if (marvel.data.results[i].creators.available !== 0) {
+				count = count + 1;
+				$('.option:eq(' + (count - 1) + ')').text(marvel.data.results[i].title);
+				// gives each option a data component
+				$('.option:eq(' + (count - 1) + ')').data('identification', marvel.data.results[i].id);
+				searchConduit();
+				if (count === 3) {
 					return;
 				}
 			}
 		}
 	}
+	
 
-	function clickOptions(ID) {
-		$('#save').show();
-		getInfo(ID);	
+// serves as a conduit between the choose options function and the results
+	function searchConduit() {
+		unbindOptions();
+		$('.option').click(function() {
+			ID = $(this).data('identification');
+			getInfo(ID);
+		});
+	};
 
-		$('#save').click(function() {
-			getEntry(ID);
-			$('#saved').hide();
-		});					
-	}
 
+// This responds to the user choosing an option and begins to search for more information about the series
 	function getInfo(ID) {
+		$('#save').show();
 		$('#serverResponses').hide();
-		$('#browseTwo').hide();
-		$('#browseThree').show();
+		showBrowseThree();
 		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
 			var test = json;
@@ -203,6 +163,7 @@ $('#clear').click(function() {
 		});
 	};
 
+// This prints the info retrieved
 	function printInfo(test) {
 		hideGif();
 		$('#title').text(test.data.results[0].title);
@@ -284,8 +245,22 @@ $('#clear').click(function() {
 		}
 	);
 
+	$('#save').click(function() {
+		console.log('hello');
+	});
+
+		// 	$('#save').click(function() {
+	// 		getEntry(ID);
+	// 		$('#saved').hide();
+
 
 // The below functions are in order of when they are called in the above function
+	function unbindOptions() {
+		$('#optionOne').unbind('click');
+		$('#optionTwo').unbind('click');
+		$('#optionThree').unbind('click');
+	}
+
 	function showGif() {
 		$('#loading').show();
 		$('#loadingGif').show();
