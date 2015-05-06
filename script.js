@@ -158,22 +158,22 @@ $('#clear').click(function() {
 		showBrowseThree();
 		showGif();
 		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-			var test = json;
-			printInfo(test);
+			var marvel = json;
+			printInfo(marvel);
 		});
 	};
 
 // This prints the info retrieved
-	function printInfo(test) {
+	function printInfo(marvel) {
 		hideGif();
-		$('#title').text(test.data.results[0].title);
-		descriptionTest(test);
-		$('#thumbnail').attr('src', test.data.results[0].thumbnail.path + '.' + test.data.results[0].thumbnail.extension);
-		$('#rating').text("rating: " + test.data.results[0].rating);
-		$('#url').attr('href', test.data.results[0].urls[0].url);
+		$('#title').text(marvel.data.results[0].title);
+		getDescription(marvel);
+		$('#thumbnail').attr('src', marvel.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
+		$('#rating').text("rating: " + marvel.data.results[0].rating);
+		$('#url').attr('href', marvel.data.results[0].urls[0].url);
 		$('#urlText').text('View this series at Marvel.com');
-		$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
-		var creatorsList = test.data.results[0].creators.items;
+		$('#creatorsNumber').text('creators: ' + marvel.data.results[0].creators.available);
+		var creatorsList = marvel.data.results[0].creators.items;
 		var findCreators = function() { 
 			for(var i=0; i<creatorsList.length; i++) {
 			$('#creators').append('<p>' + creatorsList[i].name + '</p>');
@@ -181,7 +181,61 @@ $('#clear').click(function() {
 		};
 		findCreators();
 		$('#loading').hide();
+		// To view the function that is called when you hover or click on creators or ratings (to view the specifics), scroll down. It is just above minor functions.
+		
+// calls the function that is used to save the data to the local storage
+		var ID = marvel.data.results[0].id;
+		$('#save').click(function() {
+			getEntry(ID);
+		})
 	}
+
+
+
+// This is how the information will be saved 
+
+	function getEntry(ID) {
+		showGif();
+		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+			var info = json;
+
+			var seriesIdentification = info.data.results[0].series.name;
+			var seriesIdNoSpace = seriesIdentification.split(' ').join('');
+			var seriesIdNoLeft = seriesIdNoSpace.split('(').join('');
+			var seriesId = seriesIdNoLeft.split(')').join('');
+
+			var seriesName = info.data.results[0].series.name;
+			var seriesNext = info.data.results[0].title;
+			var getRelease = info.data.results[0].dates[0].date;
+			var seriesRelease = getRelease.split('T');
+			seriesRelease = seriesRelease[0];
+			var seriesDesc = info.data.results[0].description;
+			var seriesThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
+			addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb);
+		})
+	}
+
+	function addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
+		if(existingEntries == null) {
+			existingEntries = [];
+		}
+		var entry = {
+			"seriesId": seriesId,
+			"seriesName": seriesName,
+			"seriesNext": seriesNext,
+			"seriesRelease": seriesRelease,
+			"seriesDesc": seriesDesc,
+			"seriesThumb": seriesThumb
+		};
+		localStorage.setItem(seriesName, JSON.stringify(entry));
+		existingEntries.push(entry);
+		localStorage.setItem("allEntries", JSON.stringify(existingEntries));
+		$('#saved').show();
+		$('#save').hide();
+		hideGif();
+		console.log(existingEntries);
+	};
+
 
 // these next functions are for when the information is printed out (creators and ratings hover/click)
 	$('#rating').click(function() {
@@ -245,34 +299,26 @@ $('#clear').click(function() {
 		}
 	);
 
-	$('#save').click(function() {
-		console.log('hello');
-	});
 
-		// 	$('#save').click(function() {
-	// 		getEntry(ID);
-	// 		$('#saved').hide();
+// The below functions are what I dub minor functions, that serve a very small purpose, and didn't need to be placed around the highly important functions
 
-
-// The below functions are in order of when they are called in the above function
+// Unbind the data associated with each option when you click the option
 	function unbindOptions() {
 		$('#optionOne').unbind('click');
 		$('#optionTwo').unbind('click');
 		$('#optionThree').unbind('click');
 	}
 
+// show and hide the loading information ("loading" "this may take a few minutes" and the gif)
 	function showGif() {
 		$('#loading').show();
+		$('.loading').show();
 		$('#loadingGif').show();
 	};
 	function hideGif() {
 		$('#loading').hide();
+		$('.loading').hide();
 		$('#loadingGif').hide();
-	}
-	function noOptions() {
-		$('.optionOne').hide();
-		$('.optionTwo').hide();
-		$('.optionThree').hide();
 	}
 
 // If you go from one search to another, this will reset the options
@@ -300,66 +346,21 @@ $('#clear').click(function() {
 		$('#saved').hide();
 	}
 
-
-	function descriptionTest(test) {
-		if(test.data.results[0].description == null) {
-			if(typeof test.data.results[0].items == 'undefined') {
+// this will find the correct description for you
+	function getDescription(marvel) {
+		if(marvel.data.results[0].description == null) {
+			if(typeof marvel.data.results[0].items == 'undefined') {
 				$('#comicDescription').text("No description available. Sorry!");
 			}
 			else {
-			$('#comicDescription').text(test.data.results[0].stories.items[0].name);
+			$('#comicDescription').text(marvel.data.results[0].stories.items[0].name);
 			}
 		}
 		else {
-			$('#comicDescription').text(test.data.results[0].description);
+			$('#comicDescription').text(marvel.data.results[0].description);
 		}				
 	};
 
-
-
-	function getEntry(ID) {
-		showGif();
-		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "/comics?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-			var info = json;
-
-			var seriesIdentification = info.data.results[0].series.name;
-			var seriesIdNoSpace = seriesIdentification.split(' ').join('');
-			var seriesIdNoLeft = seriesIdNoSpace.split('(').join('');
-			var seriesId = seriesIdNoLeft.split(')').join('');
-
-			var seriesName = info.data.results[0].series.name;
-			var seriesNext = info.data.results[0].title;
-			var getRelease = info.data.results[0].dates[0].date;
-			var seriesRelease = getRelease.split('T');
-			seriesRelease = seriesRelease[0];
-			var seriesDesc = info.data.results[0].description;
-			var seriesThumb = info.data.results[0].images[0].path + "." + info.data.results[0].images[0].extension;
-			addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb);
-		})
-	}
-	function addEntry(seriesId, seriesName, seriesNext, seriesRelease, seriesDesc, seriesThumb) {
-		if(existingEntries == null) {
-			existingEntries = [];
-		}
-		var entry = {
-			"seriesId": seriesId,
-			"seriesName": seriesName,
-			"seriesNext": seriesNext,
-			"seriesRelease": seriesRelease,
-			"seriesDesc": seriesDesc,
-			"seriesThumb": seriesThumb
-		};
-		localStorage.setItem(seriesName, JSON.stringify(entry));
-		existingEntries.push(entry);
-		localStorage.setItem("allEntries", JSON.stringify(existingEntries));
-		showData();
-		hideGif();
-		console.log(existingEntries);
-	};
-	function showData() {
-		$('#saved').show();
-		$('#save').hide();
-	}
 // ********************************* CLICK OPERATORS THAT BEGIN THE ABOVE STRING OF FUNCTIONS ********************************************************
 
 

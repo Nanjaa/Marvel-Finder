@@ -124,11 +124,11 @@
 <div class="wrapper" id = "navBarWrapper">
     <div class="navBar">
       <h1 class = "navigate goHome" id="marvelFinder"><span id="title1">Marvel</span><span id="title2">Finder</span></h1>
-      <button id="clear" class="navigate noMedia">Clear</button>
-      <button id="home" class="navigate noMedia goHome">Home</button>
-      <button id="browse" class="navigate noMedia goBrowse">Browse</button>
-      <button id="myComics" class="navigate noMedia goMyComics">My Comics</button>
-      <button id="myCalendar" class="navigate noMedia goCalendar">Calendar</button>
+      <button class="navigate noMedia" id="clear">Clear</button>
+      <button class="navigate noMedia goHome" id="home">Home</button>
+      <button class="navigate noMedia goBrowse" id="browse">Browse</button>
+      <button class="navigate noMedia goMyComics" id="myComics">My Comics</button>
+      <button class="navigate noMedia goCalendar"id="myCalendar">Calendar</button>
 
  <!--      <div id="mediaDropdown">
         <button id="clickDropdown">Dropdown</button>
@@ -141,8 +141,8 @@
       </div> -->
 
       <section id="fetch2">
-        <input type="text" placeholder="search" id="navTerm" class="term" />
-        <button id="navSearch" class="searchButton goBrowse">Go</button>
+        <input type="text" placeholder="search" class="term" id="navTerm" />
+        <button class="searchButton goBrowse" id="navSearch">Go</button>
       </seciton>
     </div>
 </div>
@@ -192,9 +192,9 @@
       <section id="browseTwo">
         <h1>Find Comics</h1>
         <p>Never miss a comic again! Marvel Finder allows you to track your favorite series, and always know when the next issue will be released. Our convenient calendar page also syncs upcoming issues with your Google Calendar at the click of a button. It's the perfect tool for any comic enthusiast that's sick of constantly checking release dates online.</p>
-        <p id="optionOne" class="option"></p>
-        <p id="optionTwo" class="option"></p>
-        <p id="optionThree" class="option"></p>
+        <p class="option" id="optionOne"></p>
+        <p class="option" id="optionTwo"></p>
+        <p class="option" id="optionThree"></p>
       </section>
 
       <section id="browseThree">
@@ -215,19 +215,20 @@
       </section>
 
       <section id="browseLoading">
-        <h1 id="loading" class="testOne">Loading</h1>
-        <img src="/images/loading.gif" id="loadingGif" class="testTwo">`
+        <h1 id="loading">Loading</h1>
+        <p class = "loading">This may take a few minutes...</p>
+        <img src="/images/loading.gif" class="testTwo" id="loadingGif">`
       </section> 
 
       <section id="fetch" class="defaultSearch">
-        <input type="text" placeholder="search" id="browseTerm" class="term" />
-        <button id="search" class="searchButton">Go</button>   
+        <input type="text" placeholder="search" class="term" id="browseTerm" />
+        <button class="searchButton" id="search">Go</button>   
       </section>
     </div>
 
     <div class="six columns">
     <section class="browseFour">
-      <img id="thumbnail" class="defaultThumb" src="/images/guardians.png">
+      <img id="thumbnail" src="/images/guardians.png">
       <p id="creators" style="color:black;"></p>
       <div id="ratingSystem">
         <p><b>ALL AGES</b> - Appropriate for all ages</p>
@@ -260,7 +261,7 @@
 </div>
 
 <!-- ************************************** CALENDAR *********************** -->
-  <div id="calendar" class = "content"></div>
+  <div class = "content" id="calendar"></div>
   <!-- <div id="exampleCalendar">
     <div class="six columns">
       <img src="images/exampleCalendar.png">
