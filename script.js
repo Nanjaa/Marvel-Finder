@@ -15,7 +15,7 @@ $('#clear').click(function() {
 // navigate the site through navBar buttons, as well as the deadpool, spiderman, and ghostrider pictures
 	$('.navigate').click(function() {
 		$('div.content').hide();
-		
+
 		if($(this).hasClass('goHome')) {
 			$('div.content#mainPage').fadeIn('slow');
 		}
@@ -51,29 +51,263 @@ $('#clear').click(function() {
 // ******** 																				    ********
 // *****************************************************************************************************
 
-// Call the functions you will read about below
+// Click 'go' or press enter when searching for a series
+	$('.searchButton').click(searchItem);
+	$('.term').keyup(function(event) {
+		if(event.keyCode == 13) {
 
-// THE FOLLOWING IS THE MAIN FUNCTION FOR BROWSE COMICS. BELOW IT YOU WILL FIND THE FUNCTIONS CALLED WITHIN getSeries
-	function newSearch() {
-		$('#optionOne').text('');
-		$('#optionTwo').text('');
-		$('#optionThree').text('')
-	}
-	function searchItem() {
-		if($('#navTerm').val() == '') {
-			var noSpaces = $('#browseTerm').val().toLowerCase();
-			var series = noSpaces.split(' ').join('%20');
-			getSeries(series);
+			var browseValue = $('#browseTerm').val();
+			var navValue = $('#navTerm').val();
+
+			if($('#browseTerm').val() == '') {
+				console.log(navValue);
+				searchItem(navValue);
+			}
+			else {
+				searchItem(browseValue);
+			}
+			$('div.content').hide();
+			$('div.content#browseComics').show();
+		}
+	});
+
+// If you click on the browse page's text box, the nav bar one will lose its value 
+	$('#browseTerm').click(function() {
+		$('#navTerm').val('');
+	});	
+
+
+// This checks that the user entered an inupt to search for
+	function searchItem(value) {
+		newSearch();
+		if(value == '') {
+			$('#serverResponses').show();
+			$('#response').text('What would you like to search for?');
+			showBrowseOne();
 		}
 		else {
-			var noSpaces = $('#navTerm').val().toLowerCase();
+			console.log(value);
+			var noSpaces = value.toLowerCase();
 			var series = noSpaces.split(' ').join('%20');
-			newSearch();
 			getSeries(series);
 		};	
 	};
 
 
+// This provides the user with three options to choose as a result of the search
+	function getOptions(marvel) {
+		var count = 0;
+		for (var i = 0; i < marvel.data.results.length; i++) {
+			if (marvel.data.results[i].creators.available !== 0) {
+				count = count + 1;
+				$('.option:eq(' + (count - 1) + ')').text(marvel.data.results[i].title);
+				$('.option:eq(' + (count - 1) + ')').click(function() {
+					$('#serverResponses').hide();
+					clickOptions(marvel.data.results[i].id);
+				})
+				if (count === 3) {
+					return;
+				}
+			}
+		}
+	}
+
+// This searches for more details based on the user's choice of series
+	function getSeries(series) {
+		$('#serverResponses').hide();
+		showGif();
+
+// retrieve the series information from the API
+		$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+			$('#optionOne').unbind('click');
+			$('#optionTwo').unbind('click');
+			$('#optionThree').unbind('click');
+			var count = 0;
+
+// respond if there is no data
+			if(typeof json.data.results[0] == 'undefined') {
+				showBrowseOne();
+				hideGif();
+				$('#serverResponses').show();
+				$('#response').text('No Results Found');
+				$('#error').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
+			}
+// provide user with three series options
+			else {
+				showBrowseTwo();
+				var marvel = json
+				$('#serverResponses').show();
+				$('#response').text('Please choose a series above');
+				hideGif();
+				getOptions(marvel, count);	
+			};		
+		});
+	return false;
+	};
+
+
+	function getOptions(marvel, count) {
+		for(var i = 0; i < (marvel.data.results).length; i++) {
+			if(marvel.data.results[i].creators.available !== 0) {
+				count = count + 1;
+				if(count === 1) {
+					$('#optionOne').text(marvel.data.results[i].title);
+					var IDOne = marvel.data.results[i].id;
+					$('#optionOne').click(function() {
+						$('#serverResponses').hide();
+						clickOptions(IDOne);
+					})
+				}
+				else if(count === 2) {
+					$('#optionTwo').text(marvel.data.results[i].title);
+					var IDTwo = marvel.data.results[i].id;
+					console.log(marvel.data.results[i])
+					$('#optionTwo').click(function() {
+						$('#serverResponses').hide();
+						clickOptions(IDTwo);									
+					})
+				}
+				else if(count === 3) {
+					$('#optionThree').text(marvel.data.results[i].title);
+					var IDThree = marvel.data.results[i].id;
+
+					$('#optionThree').click(function() {
+						$('#serverResponses').hide();
+						clickOptions(IDThree);								
+					})
+					
+					return;
+				}
+			}
+		}
+	}
+
+	function clickOptions(ID) {
+		$('#save').show();
+		getInfo(ID);	
+
+		$('#save').click(function() {
+			getEntry(ID);
+			$('#saved').hide();
+		});					
+	}
+
+	function getInfo(ID) {
+		$('#serverResponses').hide();
+		$('#browseTwo').hide();
+		$('#browseThree').show();
+		showGif();
+		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
+			var test = json;
+			printInfo(test);
+		});
+	};
+
+	function printInfo(test) {
+		hideGif();
+		$('#title').text(test.data.results[0].title);
+		descriptionTest(test);
+		$('#thumbnail').attr('src', test.data.results[0].thumbnail.path + '.' + test.data.results[0].thumbnail.extension);
+		$('#rating').text("rating: " + test.data.results[0].rating);
+		$('#url').attr('href', test.data.results[0].urls[0].url);
+		$('#urlText').text('View this series at Marvel.com');
+		$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
+		var creatorsList = test.data.results[0].creators.items;
+		var findCreators = function() { 
+			for(var i=0; i<creatorsList.length; i++) {
+			$('#creators').append('<p>' + creatorsList[i].name + '</p>');
+			};
+		};
+		findCreators();
+		$('#loading').hide();
+	}
+
+// these next functions are for when the information is printed out (creators and ratings hover/click)
+	$('#rating').click(function() {
+	if ($(this).data('clicked')) {
+		$(this).data('clicked', false);
+	}
+	else {
+			$(this).data('clicked', true);
+	}
+	});
+
+	$('#rating').hover(
+		function() {
+			$('#ratingSystem').show();
+			$('#thumbnail').hide();
+			$('#creators').hide();
+		},
+		function() {
+			if($('#rating').data('clicked')) {
+				$('#ratingSystem').show();
+				$('#thumbnail').hide();
+				$('#creators').hide();
+				$('#creatorsList').data('clicked', false);
+			}
+			else {
+			$('#ratingSystem').hide();
+			$('#creators').hide();
+			$('#thumbnail').show();
+			}
+		}
+	);
+
+
+	$('#creatorsNumber').click(function() {
+		if ($(this).data('clicked')) {
+			$(this).data('clicked', false);
+		}
+		else {
+			$(this).data('clicked', true);
+		}
+	});
+
+	$('#creatorsNumber').hover(
+		function() {
+			$('#creators').show();
+			$('#thumbnail').hide();
+			$('#ratingSystem').hide();
+		},
+		function() {
+			if($('#creatorsNumber').data('clicked')) {
+				$('#creators').show();
+				$('#thumbnail').hide();
+				$('#ratingSystem').hide();
+				$('#ratingSystem').data('clicked', false);
+			}
+			else {
+			$('#creators').hide();
+			$('#ratingSystem').hide();
+			$('#thumbnail').show();
+			}
+		}
+	);
+
+
+// The below functions are in order of when they are called in the above function
+	function showGif() {
+		$('#loading').show();
+		$('#loadingGif').show();
+	};
+	function hideGif() {
+		$('#loading').hide();
+		$('#loadingGif').hide();
+	}
+	function noOptions() {
+		$('.optionOne').hide();
+		$('.optionTwo').hide();
+		$('.optionThree').hide();
+	}
+
+// If you go from one search to another, this will reset the options
+	function newSearch() {
+		$('#optionOne').text('');
+		$('#optionTwo').text('');
+		$('#optionThree').text('');
+	}
+
+// This will take you from one browse page to another
 	function showBrowseOne() {
 		$('#browseOne').show();
 		$('#browseTwo').hide();
@@ -92,241 +326,19 @@ $('#clear').click(function() {
 	}
 
 
-	function getSeries(series) {
-		if(series == '') {
-			$('#serverResponses').show();
-			$('#response').text('What would you like to search for?');
-			showBrowseOne();
+	function descriptionTest(test) {
+		if(test.data.results[0].description == null) {
+			if(typeof test.data.results[0].items == 'undefined') {
+				$('#comicDescription').text("No description available. Sorry!");
+			}
+			else {
+			$('#comicDescription').text(test.data.results[0].stories.items[0].name);
+			}
 		}
 		else {
-			$('#serverResponses').hide();
-			showGif();
-
-// retrieve the series information from the API
-			$.get("http://gateway.marvel.com/v1/public/series?titleStartsWith=" + series + "&apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-// retrieve the information for option one 
-				// var choiceNumber = null;
-				// var IDOne = null;
-				// var IDTwo = null;
-				// var IDThree = null;
-				$('#optionThree').unbind('click');
-				var count = 0;
-
-				function testfunction(marvel) {
-					var count = 0;
-					for (var i = 0; i < marvel.data.results.length; i++) {
-						if (marvel.data.results[i].creators.available !== 0) {
-							count = count + 1;
-							$('.option:eq(' + (count - 1) + ')').text(marvel.data.results[i].title);
-							$('.option:eq(' + (count - 1) + ')').click(function() {
-								$('#serverResponses').hide();
-								clickOptions(marvel.data.results[i].id);
-							})
-							if (count === 3) {
-								return;
-							}
-						}
-					}
-				}
-
-				function getOptions(marvel, count) {
-					for(var i = 0; i < (marvel.data.results).length; i++) {
-						if(marvel.data.results[i].creators.available !== 0) {
-							count = count + 1;
-							if(count === 1) {
-								$('#optionOne').text(marvel.data.results[i].title);
-
-								var IDOne = marvel.data.results[i].id;
-								$('#optionOne').click(function() {
-									$('#serverResponses').hide();
-									console.log(1);
-									var choiceNumber = 1;
-									clickOptions(IDOne);
-								})
-							}
-							else if(count === 2) {
-								$('#optionTwo').text(marvel.data.results[i].title);
-								var IDTwo = marvel.data.results[i].id;
-								console.log(marvel.data.results[i])
-
-
-								$('#optionTwo').click(function() {
-									console.log(2);
-									$('#serverResponses').hide();
-									var choiceNumber = 2;
-									clickOptions(IDTwo);									
-								})
-							}
-							else if(count === 3) {
-								$('#optionThree').text(marvel.data.results[i].title);
-								var IDThree = marvel.data.results[i].id;
-
-								$('#optionThree').click(function() {
-									console.log(3);
-									$('#serverResponses').hide();
-									var choiceNumber = 3;
-									clickOptions(IDThree);								
-								})
-								
-								return;
-							}
-						}
-					}
-				}
-				
-				function clickOptions(ID) {
-					$('#save').show();
-						getInfo(ID);	
-					$('#save').click(function() {
-							getEntry(ID);
-							$('#saved').hide();
-						});					
-
-				}
-
-// respond if there is no data
-				if(typeof json.data.results[0] == 'undefined') {
-					showBrowseOne();
-					hideGif();
-					$('#serverResponses').show();
-					$('#response').text('No Results Found');
-					$('#error').text("We're sorry, but we could not find anything under that name. Check your spelling, and try again!");
-				}
-// provide user with three series options
-				else {
-					showBrowseTwo();
-					var marvel = json
-					$('#serverResponses').show();
-					$('#response').text('Please choose a series above');
-					hideGif();
-					getOptions(marvel, count);	
-				};		
-			});
-		};
-		return false;
+			$('#comicDescription').text(test.data.results[0].description);
+		}				
 	};
-// The below functions are in order of when they are called in the above function
-	function showGif() {
-		$('#loading').show();
-		$('#loadingGif').show();
-	};
-	function hideGif() {
-		$('#loading').hide();
-		$('#loadingGif').hide();
-	}
-	function noOptions() {
-		$('.optionOne').hide();
-		$('.optionTwo').hide();
-		$('.optionThree').hide();
-	}
-	function getInfo(ID) {
-		$('#serverResponses').hide();
-		$('#browseTwo').hide();
-		$('#browseThree').show();
-		showGif();
-		$.get("http://gateway.marvel.com:80/v1/public/series/" + ID + "?apikey=7e74289abba6ba60c0ec85bc595e7416", function(json) {
-			var test = json;
-			printInfo(test);
-		});
-	};
-
-	function printInfo(test) {
-		hideGif();
-		$('#title').text(test.data.results[0].title);
-		function descriptionTest() {
-			if(test.data.results[0].description == null) {
-				if(typeof test.data.results[0].items == 'undefined') {
-					$('#comicDescription').text("No description available. Sorry!");
-				}
-				else {
-				$('#comicDescription').text(test.data.results[0].stories.items[0].name);
-				}
-			}
-			else {
-				$('#comicDescription').text(test.data.results[0].description);
-			}				
-		};
-		descriptionTest();
-		$('#thumbnail').attr('src', test.data.results[0].thumbnail.path + '.' + test.data.results[0].thumbnail.extension);
-		$('#rating').text("rating: " + test.data.results[0].rating);
-		$('#url').attr('href', test.data.results[0].urls[0].url);
-		$('#urlText').text('View this series at Marvel.com');
-		$('#creatorsNumber').text('creators: ' + test.data.results[0].creators.available);
-		var creatorsList = test.data.results[0].creators.items;
-		var findCreators = function() { 
-			for(var i=0; i<creatorsList.length; i++) {
-			$('#creators').append('<p>' + creatorsList[i].name + '</p>');
-			};
-		};
-		findCreators();
-		$('#loading').hide();
-
-
-
-
-		$('#creatorsNumber').click(function() {
-			if ($(this).data('clicked')) {
-				$(this).data('clicked', false);
-			}
-			else {
-				$(this).data('clicked', true);
-			}
-		});
-
-		$('#creatorsNumber').hover(
-			function() {
-				$('#creators').show();
-				$('#thumbnail').hide();
-				$('#ratingSystem').hide();
-			},
-			function() {
-				if($('#creatorsNumber').data('clicked')) {
-					$('#creators').show();
-					$('#thumbnail').hide();
-					$('#ratingSystem').hide();
-					$('#ratingSystem').data('clicked', false);
-				}
-				else {
-				$('#creators').hide();
-				$('#ratingSystem').hide();
-				$('#thumbnail').show();
-				}
-			}
-		);
-
-
-		$('#rating').click(function() {
-			if ($(this).data('clicked')) {
-				$(this).data('clicked', false);
-			}
-			else {
-				$(this).data('clicked', true);
-			}
-		});
-
-		$('#rating').hover(
-			function() {
-				$('#ratingSystem').show();
-				$('#thumbnail').hide();
-				$('#creators').hide();
-			},
-			function() {
-				if($('#rating').data('clicked')) {
-					$('#ratingSystem').show();
-					$('#thumbnail').hide();
-					$('#creators').hide();
-					$('#creatorsList').data('clicked', false);
-				}
-				else {
-				$('#ratingSystem').hide();
-				$('#creators').hide();
-				$('#thumbnail').show();
-				}
-			}
-		);
-
-	};
-
 
 
 
@@ -374,23 +386,6 @@ $('#clear').click(function() {
 		$('#save').hide();
 	}
 // ********************************* CLICK OPERATORS THAT BEGIN THE ABOVE STRING OF FUNCTIONS ********************************************************
-
-	$('.searchButton').click(searchItem);
-	$('.term').keyup(function(event) {
-		if(event.keyCode == 13) {
-			$('div.content').hide();
-			$('div.content#browseComics').fadeIn('slow');
-			newSearch();
-			searchItem();
-			$()
-
-		}
-	});
-
-	$('#browseTerm').click(function() {
-		newSearch();
-		$('#navTerm').val('');
-	});	
 
 
 // *****************************************************************************************************
