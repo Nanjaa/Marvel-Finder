@@ -13,7 +13,7 @@ h2 {
 
 
 /************ UNIVERSAL **************************/
-.testWrapper {
+.pageWrapper {
 	margin: 0;
 	padding: 0;
 }
@@ -183,7 +183,7 @@ h5 {
 
 /************* BROWSE COMICS ********************/
 
-#browseComics, #browseTwo, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
+#browseComics, #browseTwo, .loading, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
 	display: none;
 }
 #response {
