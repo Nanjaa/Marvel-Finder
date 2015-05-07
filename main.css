@@ -1,25 +1,19 @@
-#calendar {
-	margin: 5%;
-	padding: 3%;
-	background-color: white;
-	border: 3px solid #518cca;
-	font-family: 'Quicksand', sans-serif;
-}
-h2 {
-	color: #e23636;
+
+/*=================================================================================*/
+							/*    UNIVERSAL   */
+/*=================================================================================*/
+
+#browseComics, .mediaDropdown, #mediaDropdown, #dropdownContent, #myComicsList, #browseTwo, .loading, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
+		display: none;
 }
 
-
-
-
-/************ UNIVERSAL **************************/
 .pageWrapper {
 	margin: 0;
 	padding: 0;
 }
 
-
 /*navbar*/
+
 .wrapper {
 	padding: 20px;
 	padding-bottom: 0px;
@@ -29,13 +23,15 @@ h2 {
 	text-align: right;
 	padding-bottom: 20px;
 }
-#fetch2, button {
+#fetch2, button, .navBar h1 {
 	display: inline-block;
 }
 .navBar h1 {
 	float: left;
-	display: inline-block;
 	font-family: 'Quicksand', sans-serif;
+}
+.myMarvel {
+	font size: 10vh;
 }
 #title1 {
 	color: #e23636;
@@ -53,10 +49,10 @@ h2 {
 	border-bottom: 3px solid black;
 }
 #headerBar {
-	height: 5vh;
+	height: 35px;
 }
 #footerBar {
-	height: 10vh;
+	height: 100px;
 }
 /*misc universals*/
 h3 {
@@ -64,19 +60,11 @@ h3 {
 	font-family: 'Quicksand', sans-serif;
 }
 button, input {
-	border-color: #504a4a;
-	color: #504a4a;
 	margin: 10px;
 	border: none;
-	font-family: 'Gudea', sans-serif;
 }
 button:hover {
 	color: #e23636;
-	border-color: #e23636;
-}
-button:visited {
-	color: #e23636;
-	border-color: #e23636;
 }
 body {
 	background-color: #504a4a;
@@ -89,16 +77,18 @@ img {
 	width: 100%;
 	height: auto;
 }
-p {
+p, button {
 	font-family: 'Gudea', sans-serif;
+	font-size: 17px;
 }
 a {
 	text-decoration: none;
 }
 
-/************* MAIN PAGE **************************/
+/*=================================================================================*/
+							/*    MAIN PAGE   */
+/*=================================================================================*/
 .four {
-	border: 3px solid black;
 	padding: 10px;
 	text-align: center;
 }
@@ -112,6 +102,7 @@ a {
 	margin-left: 26%;
 	margin-right: 26%;
 	text-align: center;
+	background-color: white;
 
 }
 #primaryOne, #primaryTwo {
@@ -132,11 +123,6 @@ h5 {
 	margin-top: 30%;
 	text-shadow: 0px 5px 10px black;
 }
-.contentWrapper {
-	margin: 0px;
-	background-color: #504a4a;
-	padding: 20px;
-}
 #spiderman {
 	background: url("images/spiderman.png") center center no-repeat;
 	background-position: center center;
@@ -150,14 +136,11 @@ h5 {
 	background-position: 25% 25%;
 }
 #ghostRider, #deadpool, #spiderman {
-	height: 40vh;
+	height: 300px;
 	border: 5px solid #518cca;
 }
 #ghostRider:hover, #deadpool:hover, #spiderman:hover {
 	cursor: pointer;
-}
-#hook {
-	background-color: white;
 }
 #eyePopper {
 	margin-left: 8%;
@@ -181,51 +164,56 @@ h5 {
 	padding-right: 5%;
 }
 
-/************* BROWSE COMICS ********************/
+/*=================================================================================*/
+							/*    BROWSE COMICS   */
+/*=================================================================================*/
 
-#browseComics, #browseTwo, .loading, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved {
-	display: none;
+
+.searchButton {
+	margin-left: 0px;
 }
 #response {
 	color: #e23636;
 	font-size: 30px;
+}
+.interaction {
+	font-size: 30px;
+}
+#error {
+	font-size: 20px;
 }
 .content {
 	padding: 50px;
 	text-align: center;
 	background-color: #504a4a
 }
-.option:hover {
-	cursor: pointer;
-}
-.content h1 {
-	color: white;
+.header {
+	color: #518cca;
 }
 .content p {
 	color: white;
+}
+.option:hover {
+	cursor: pointer;
+	color: #518cca;
 }
 #term {
 	border: 2px solid #e23636;
 	color: #e23636;
 	padding: 5px;
 }
-#search, #save, #refresh {
+#search, #save {
 	background-color: white;
-}
-.optionOne:hover, .optionTwo:hover, .optionThree:hover {
-	cursor: pointer;
-	color: #e23636;
 }
 #creatorsNumber:hover, #rating:hover {
 	cursor: pointer;
 	color: #e23636;
 }
 
-/******************** MY COMICS LIST **********************/
+/*=================================================================================*/
+							/*    MY COMICS   */
+/*=================================================================================*/
 
-#myComicsList {
-	display: none;
-}
 #myComicsTable {
 	color: white;
 	width: 100%;
@@ -238,13 +226,10 @@ h5 {
 #tableIndex {
 	color: #e23636;
 }
-#newComicNext {
+.seriesNext {
 	color: #518cca;
 }
 .newSeriesName {
-	color: #f78f3f;
-}
-.icon-cancel-circled2-1 {
 	color: #f78f3f;
 }
 .icon-cancel-circled2-1:hover {
@@ -252,9 +237,21 @@ h5 {
 }
 #deleteMe {
 	text-align: center;
+	color: #f78f3f;
 }
 
-/************************** CALENDAR ************************/
+/*=================================================================================*/
+							/*    CALENDAR   */
+/*=================================================================================*/
+
+#calendar {
+	margin: 5%;
+	padding: 3%;
+	background-color: white;
+	border: 3px solid #518cca;
+	font-family: 'Quicksand', sans-serif;
+	cursor: default !important;
+}
 
 .fc-today {
 	background: none repeat scroll 0 0 #F78F3F !important;
@@ -278,21 +275,176 @@ h5 {
 .fc-day-header {
 	color: #518cca;
 }
-#calendar {
-	cursor: default !important;
-}
 
-
-
-#exampleCalendar {
-	border: 5px solid pink;
-	display: block;
-}
-/************************* MISC *******************/
+/*=================================================================================*/
+							/*    MISC   */
+/*=================================================================================*/
 
 footer {
 	padding: 5px;
 	padding-top: 10px;
 	font-family: 'Gudea', sans-serif;	
 	font-size: 13px;
+}
+
+
+/*universal hidden elements*/
+#browseComics, #browseTwo, .loading, #browseThree, #serverResponses, #browseFour, #creators, #loadingGif, #loading, #ratingSystem, #save, #saved, #myComicsList, 
+
+/*mobile hidden elements*/
+
+#upArrow, #mobile, #mediaDropdown, #dropdownContent {
+		display: none;
+}
+
+#downArrow, #upArrow, #mediaBrowse, #mediaMyComics, #mediaMyCalendar, #mediaHome {
+	cursor: pointer;
+}
+
+
+/*=================================================================================*/
+							/*    MEDIA QUERIES   */
+/*=================================================================================*/
+
+
+
+/*980x1280*/
+@media (max-width: 1280px) {
+
+	#eyePopper {
+		background-position: 60%;
+	}
+	#myComicsTable {
+		margin-top: 0px;
+	}
+}
+/*800x1280, 768x1024*/
+@media (max-width: 980px) {
+	#eyePopper {
+		background-position: 50%;
+	}
+}
+/*768x1024*/
+@media (max-width: 800px) {
+	#fetch2 {
+		margin-right: 12%;
+	}
+	#hook {
+		width: 100%;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	#primaryOne, #primaryTwo {
+		font-size: 40px;
+	}
+	#eyePopper {
+		margin: -5%;
+		padding: 0;
+		background-color: #e23636;
+		background-image: none;
+	}
+	h5 {
+		margin-top: 15%;
+	}
+}
+@media (max-width: 768px) and (orientation: landscape) {
+	
+}
+
+/*360x640*/
+@media (max-width: 768px) {
+	#mediaDropdown {
+		display: block;
+		text-align: center;
+		padding-top: 10px;
+		padding-bottom: 10px
+	}
+	.noMedia, .landscape {
+		display: none;
+	}
+	#mobile {
+		display: block;
+	}
+	#navSearch {
+		width: 40px;
+		margin: 0;
+	}
+	#navTerm {
+		margin: 0;
+		width: 120px;
+	}
+	#fetch2 {
+		margin: 0;
+		margin-top: 1%
+	}
+	.navBar {
+		padding: 0;
+	}
+	#spiderman, #deadpool, #ghostRider {
+		height: 200px;
+	}
+	#downArrow, #upArrow {
+		margin-left: 36%;
+		margin-top: -10px;
+	}
+	#upArrow {
+		display: block;
+	}
+	#myMarvel {
+		margin: 0;
+	}
+	#browseComics, #myComicsList {
+		padding: 25px;
+	}
+
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+	.landscape {
+		display: table-cell;
+	}
+	#mobile {
+		display: none;
+	}
+	#mediaDropdown {
+		padding-top: 15px;
+	}
+	#landscapeDesc {
+		overflow: scroll;
+		height: 100px;
+	}
+	#downArrow, #upArrow {
+		margin-left: 42%;
+	}
+	h5 {
+		font-size: 40px;
+	}
+
+}
+/*320x480*/
+@media (max-width: 360px) {
+	#navTerm {
+		width: 70px;
+	}
+	#downArrow, #upArrow {
+		margin-left: 110px;
+	}
+
+}
+
+
+#downArrow {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 23px solid #518cca;
+}
+
+#upArrow {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 23px solid #518cca;
 }

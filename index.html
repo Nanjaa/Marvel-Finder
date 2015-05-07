@@ -59,9 +59,9 @@
       var fullEvents = [];
       for(var i = 0; i < dataList.length; i++) {
         var newName = "<tr id='" + dataList[i]['seriesId'] + "'><td class = 'newSeriesName' id = '" + dataList[i]['seriesName'] + "'><b>" + dataList[i]["seriesName"] + "</b></td>";
-        var newNext = "<td class = 'seriesNext'>" + dataList[i]["seriesNext"] + "</td>";
-        var newRelease = "<td id = 'newComicRelease'>" + dataList[i]["seriesRelease"] + "</td>";
-        var newDesc = "<td>" + dataList[i]["seriesDesc"] + "</td>";
+        var newNext = "<td class = 'seriesNext landscape'>" + dataList[i]["seriesNext"] + "</td>";
+        var newRelease = "<td class='landscape' id = 'newComicRelease'>" + dataList[i]["seriesRelease"] + "</td>";
+        var newDesc = "<td class='landscape'><p id='landscapeDesc'>" + dataList[i]["seriesDesc"] + "</p></td>";
         var newThumb = "<td><img src = '" + dataList[i]["seriesThumb"] + "'></td>";
         var deleteSeries = "<td id='deleteMe'><i class='icon-cancel-circled2-1'></i></td></tr>";
 
@@ -117,31 +117,31 @@
 
 <!-- nav bar -->
 <div class="wrapper">
-    <div class="navBar">
-      <h1 class = "navigate goHome" id="myMarvel"><span id="title2">My</span><span id="title1">Marvel</span></h1>
-      <button class="navigate noMedia goHome" id="home">Home</button>
-      <button class="navigate noMedia goBrowse" id="browse">Browse</button>
-      <button class="navigate noMedia goMyComics" id="myComics">My Comics</button>
-      <button class="navigate noMedia goCalendar"id="myCalendar">Calendar</button>
+  <div class="navBar">
+    <h1 class = "navigate goHome" id="myMarvel"><span id="title2">My</span><span id="title1">Marvel</span></h1>
+    <button class="navigate noMedia goHome" id="home">Home</button>
+    <button class="navigate noMedia goBrowse" id="browse">Browse</button>
+    <button class="navigate noMedia goMyComics" id="myComics">My Comics</button>
+    <button class="navigate noMedia goCalendar"id="myCalendar">Calendar</button>
 <!-- search bar -->
-      <section id="fetch2">
-        <input type="text" placeholder="search" class="term" id="navTerm" />
-        <button class="searchButton goBrowse" id="navSearch">Go</button>
-      </seciton>
-    </div>
+    <section id="fetch2">
+      <input type="text" placeholder="search" class="term" id="navTerm" />
+      <button class="searchButton goBrowse" id="navSearch">Go</button>
+    </seciton>
+  </div>
           <!-- Media queries, will be hidden -->
-      <div id="mediaDropdown">
-        <div id="dropdownContent">
-          <p class="navigate goHome" id="mediaHome">Home</p>
-          <p class="navigate goBrowse" id="mediaBrowse">Browse</p>
-          <p class="navigate goMyComics" id="mediaMyComics">My Comics</p>
-          <p class="navigate goCalendar" id="mediaMyCalendar">Calendar</p>
-        </div>
-        <div id="arrows">
-        <div id="downArrow"></div>
-        <div id="upArrow"></div>
-        </div>
-      </div>
+  <div id="mediaDropdown">
+    <div id="dropdownContent">
+      <div id="fixerDiv"></div>
+      <p class="navigate goHome" id="mediaHome">Home</p>
+      <p class="navigate goBrowse" id="mediaBrowse">Browse</p>
+      <p class="navigate goMyComics" id="mediaMyComics">My Comics</p>
+      <p class="navigate goCalendar" id="mediaMyCalendar">Calendar</p>
+    </div>
+  </div>
+  <div id="arrows">
+    <div id="upArrow"></div>
+  </div>
 </div>
 
 <div class="divider" id="headerBar"></div>
@@ -174,19 +174,21 @@
   </div>
 </div>
 
-<!-- ********** BROWSE COMICS *************** -->
+<!-- ================================================================================================================================================= -->
+                                                              <!-- BROWSE COMICS -->
+<!-- ================================================================================================================================================= -->                                                              
 
 <div class="content" id="browseComics">
   <div class="row">
     <div class="six columns browseDiv" >
 
       <section id="browseOne">
-        <h1>Find Comics</h1>
+        <h1 class="header">Find Comics</h1>
         <p>My Marvel utilizes Marvel's database. Search for your favorite series below, and we'll do our best to retrieve it for you! From there, you can save your favorite series, and whenever Marvel releases the date of the next issue, you'll see it appear on your calendar!</p>
       </section>
 
       <section id="browseTwo">
-        <h1>Find Comics</h1>
+        <h1 class="header">Find Comics</h1>
         <p>My Marvel utilizes Marvel's database. Search for your favorite series below, and we'll do our best to retrieve it for you! From there, you can save your favorite series, and whenever Marvel releases the date of the next issue, you'll see it appear on your calendar!</p>
         <p class="option" id="optionOne"></p>
         <p class="option" id="optionTwo"></p>
@@ -194,7 +196,7 @@
       </section>
 
       <section id="browseThree">
-        <h1 id="title"></h1>
+        <h1 class="header" id="title"></h1>
         <p id="comicDescription"></p>
         <p><span id="rating"></span></p>
         <p><span id="creatorsNumber"></span></p>
@@ -240,13 +242,13 @@
 
 <div class="content" id="myComicsList">
 
-<h1>These are your chosen favorites</h1>
-<p>Turn your device to the side to view more details</p>
+<h1 class="header">These are your chosen favorites</h1>
+<p id="mobile">Turn your device to the side to view more details</p>
 <table id="myComicsTable">
   <tr id="tableIndex">
     <th>Series Name</th>
     <th class="landscape">Next Issue</th>
-    <th>Release Date</th>
+    <th class="landscape">Release Date</th>
     <th class="landscape">Description</th>
     <th>Thumbnail</th>
     <th>Delete</th>

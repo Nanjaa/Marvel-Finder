@@ -1,9 +1,5 @@
 
 $(document).ready(function() {
-// the following will be used to reset the browse comics
-$('#clear').click(function() {
-	localStorage.clear();
-})
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -29,8 +25,10 @@ $('#clear').click(function() {
 		}
 	})
 
+	$('.navigate').click(hideDrop);
+
 // changes the colors of the logo
-	$('#marvelFinder').hover(
+	$('#myMarvel').hover(
 		function() {
 			$('#title1').css('color', '#f78f3f');
 			$('#title2').css('color', '#518cca');
@@ -51,21 +49,25 @@ $('#clear').click(function() {
 // *****************************************************************************************************
 
 // Click 'go' or press enter when searching for a series
-	$('.searchButton').click(searchItem);
+	function getValue() {
+		hideDrop();
+		var browseValue = $('#browseTerm').val();
+		var navValue = $('#navTerm').val();
+
+		if($('#browseTerm').val() == '') {
+			searchItem(navValue);
+		}
+		else {
+			searchItem(browseValue);
+		}
+		$('div.content').hide();
+		$('div.content#browseComics').show();
+	}
+
+	$('.searchButton').click(getValue);
 	$('.term').keyup(function(event) {
 		if(event.keyCode == 13) {
-
-			var browseValue = $('#browseTerm').val();
-			var navValue = $('#navTerm').val();
-
-			if($('#browseTerm').val() == '') {
-				searchItem(navValue);
-			}
-			else {
-				searchItem(browseValue);
-			}
-			$('div.content').hide();
-			$('div.content#browseComics').show();
+			getValue();
 		}
 	});
 
@@ -153,7 +155,6 @@ $('#clear').click(function() {
 
 // This responds to the user choosing an option and begins to search for more information about the series
 	function getInfo(ID) {
-		$('#save').show();
 		$('#serverResponses').hide();
 		showBrowseThree();
 		showGif();
@@ -165,14 +166,15 @@ $('#clear').click(function() {
 
 // This prints the info retrieved
 	function printInfo(marvel) {
+		$('#save').show();
 		hideGif();
 		$('#title').text(marvel.data.results[0].title);
 		getDescription(marvel);
 		$('#thumbnail').attr('src', marvel.data.results[0].thumbnail.path + '.' + marvel.data.results[0].thumbnail.extension);
-		$('#rating').text("rating: " + marvel.data.results[0].rating);
+		$('#rating').text("Rating: " + marvel.data.results[0].rating);
 		$('#url').attr('href', marvel.data.results[0].urls[0].url);
 		$('#urlText').text('View this series at Marvel.com');
-		$('#creatorsNumber').text('creators: ' + marvel.data.results[0].creators.available);
+		$('#creatorsNumber').text('Creators: ' + marvel.data.results[0].creators.available);
 		var creatorsList = marvel.data.results[0].creators.items;
 		var findCreators = function() { 
 			for(var i=0; i<creatorsList.length; i++) {
@@ -370,15 +372,7 @@ $('#clear').click(function() {
 // ******** 																				    ********
 // *****************************************************************************************************
 
-
-
-// *****************************************************************************************************
-// ******** 																					********
-// ******** 								CALENDAR										    ********
-// ******** 																				    ********
-// *****************************************************************************************************
-
-
+// For all the functions used on the "My Comics" and "Calendar" pages, go to index.html
 
 // *****************************************************************************************************
 // ******** 																					********
@@ -386,36 +380,20 @@ $('#clear').click(function() {
 // ******** 																				    ********
 // ***************************************************************************************************** 
 
-	// $('#mediaDropdown').click(function() {
-	// 	$('#dropdownContent').toggle();
-	// })
+	$('#upArrow').click(function() {
+		if($(this).data('dropStatus') == true) {
+			$(this).data('dropStatus', false);
+			$('#dropdownContent').slideUp();
+		}
+		else {
+			$(this).data('dropStatus', true);
+			$('#dropdownContent').slideDown();
+		};	
+	});
 
-	// console.log(dropToggle);
-
-
-	// $('#mediaDropdown').click(function() {
-	// 	console.log("1: " + $(this).data('dropStatus'));
-	// 	dropFunction();
-	// });
-
-
-	// $('#mediaDropdown').click(function() {
-	// 	if($(this).data('dropStatus') == true) {
-	// 		$(this).data('dropStatus', false);
-	// 		$('#dropdownContent').slideUp();
-	// 	}
-	// 	else {
-	// 		$(this).data('dropStatus', true);
-	// 		$('#dropdownContent').slideDown();	
-	// 	};	
-	// });
-
-
-	// $('#mediaHome').click(homeFunction);
-	// $('#mediaBrowse').click(browseFunction);
-	// $('#mediaMyComics').click(myComicsFunction);
-	// $('#mediaMyCalendar').click(calendarFunction);
-
-
+	function hideDrop() {
+		$('#dropdownContent').slideUp();
+		$('#upArrow').data('dropStatus', false);
+	}
 
 });
